@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html>
+<%- include('../partials/head.ejs') %>
+<body>
+    
+    <div style="display: none" id="pageTitle">dashboard</div>
+
+    <%- include('../partials/desktopNav.ejs') %>
+
+    <div class="contentBox nopadd">
+        <nav class="navigation">
+            <span class="active" dashpage="overview">Overview</span>
+            <!-- <span dashpage="notification">Notification</span> -->
+            <!-- <span dashpage="subscription">Subscriptions</span> -->
+            <span dashpage="misspelling">Misspelling</span>
+            <span dashpage="grammar">Grammar Flags</span>
+        </nav>
+
+        <div class="theContent">
+            <section dashSect="overview" class="active">
+                <div class="is-flex is-marginless is-justify-content-space-between is-align-items-center">
+                    <div class="column is-4 is-paddingless">
+                        <div class="select is-purple is-fullwidth">
+                            <select>
+                                <option>Today</option>
+                                <option>Yesterday</option>
+                                <option>Last 7 days</option>
+                                <option>Last 30 Days</option>
+                                <option>Last Year</option>
+                                <option>2022</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="buttons is-margine-left">
+                        <button class="button is-purpleGrade is-top-marginless-mins">Reset</button>
+                        <button class="button is-purpleGrade is-top-marginless-mins">Export</button>
+                    </div>
+                </div>
+
+                <h2 class="label is-3 has-text-weight-medium is-marginless">Account Overview</h2>
+                <div class="columns is-multiline">
+
+                    <div class="column dbColumn is-one-third-desktop is-half-tablet">
+                        <div class="primary active">
+                            <div class="is-flex is-align-items-center is-justify-content-space-between">
+                                <span class="label has-text-weight-normal is-marginless">Subscription:</span>
+                                <span class="label has-text-weight-normal is-size-7">Get ready for IELTS Test</span>
+                            </div>
+                            <div class="is-flex is-align-items-center is-justify-content-space-between">
+                                <span class="is-size-4">20<sub class="is-size-5">/ 30</sub></span>
+                                <span class="is-size-4">Days Left</span>
+                            </div>
+                            <div class="is-flex is-align-items-center">
+                                <progress class="progress is-small is-subsc" value="20" max="30"></progress>
+                                <span>66%</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="column dbColumn is-one-third-desktop is-half-tablet">
+                        <div class="normalAnalytics">
+                            <span class="is-size-6 is-marginless">Points To Next Level</span>
+                            <div class="is-flex is-align-items-center is-justify-content-space-between">
+                                <span class="is-size-4">1243<sub class="is-size-5">/ 1500</sub></span>
+                                <div class="pie animate levelNum verysmall" style="--p:72"> B+</div>
+                            </div>
+                            <div class="is-flex is-align-items-center">
+                                <progress class="progress is-small is-purple is-level" value="1243" max="1500"></progress>
+                                <span>82%</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="column dbColumn is-one-third-desktop is-half-tablet">
+                        <div class="normalAnalytics">
+                            <span class="is-size-6 is-marginless">Study Hours</span>
+                            <div class="is-flex is-align-items-center is-justify-content-space-between">
+                                <span class="is-size-4">2100<sub class="is-size-5">/ 3000</sub> <sub class="is-size-7">min</sub></span>
+                                <div class="pie animate levelNum verysmall is-size-6" style="--p:70"> 3.5H</div>
+                            </div>
+                            <div class="is-flex is-align-items-center">
+                                <progress class="progress is-small is-purple is-level" value="3.5" max="5"></progress>
+                                <span>70%</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="column is-two-fifths-desktop is-full-tablet">
+                        <div class="normalAnalytics">
+                            <p class="title is-3 has-text-white-bis has-text-weight-normal is-marginless">Monthely Goals</p>
+                            <div class="is-flex is-justify-content-space-between">
+                                <div class="textsCont">
+                                    <p class="goal"><span class="goalName"><i class="fa-regular fa-keyboard"></i> Writing:</span> <span class="goalNum">50</span></p>
+                                    <p class="goal"><span class="goalName"><i class="fa-solid fa-microphone"></i> Speaking:</span> <span class="goalNum">50</span></p>
+                                    <p class="goal"><span class="goalName"><i class="fa-solid fa-dumbbell"></i> Other Practices:</span> <span class="goalNum">30</span></p>
+                                </div>
+                                <div class="pie animate medium" style="--p:73"> 73%</div>
+                            </div>
+                            <hr class="mediumHr">
+                            <div class="practiceType">
+                                <div class="is-flex is-justify-content-space-between">
+                                    <span class="is-size-6 is-marginless"><i class="fa-regular fa-keyboard"></i> Writing</span>
+                                    <span class="is-size-7 is-marginless solvedNum"><sup>40</sup>/<sub>50</sub></span>
+                                </div>
+                                <div class="is-flex is-align-items-center">
+                                    <progress class="progress is-small is-purple is-level" value="40" max="50"></progress>
+                                    <span>80%</span>
+                                </div>
+                            </div>
+                            <div class="practiceType">
+                                <div class="is-flex is-justify-content-space-between">
+                                    <span class="is-size-6 is-marginless"><i class="fa-solid fa-microphone"></i> Speaking</span>
+                                    <span class="is-size-7 is-marginless solvedNum"><sup>30</sup>/<sub>50</sub></span>
+                                </div>
+                                <div class="is-flex is-align-items-center">
+                                    <progress class="progress is-small is-purple is-level" value="30" max="50"></progress>
+                                    <span>60%</span>
+                                </div>
+                            </div>
+                            <div class="practiceType">
+                                <div class="is-flex is-justify-content-space-between">
+                                    <span class="is-size-6 is-marginless"><i class="fa-solid fa-dumbbell"></i> Others</span>
+                                    <span class="is-size-7 is-marginless solvedNum"><sup>25</sup>/<sub>30</sub></span>
+                                </div>
+                                <div class="is-flex is-align-items-center">
+                                    <progress class="progress is-small is-purple is-level" value="25" max="30"></progress>
+                                    <span>83%</span>
+                                </div>
+                            </div>
+                            <button class="button is-purpleGrade">Change Next Goal</button>
+                        </div>
+                    </div>
+
+                    <div class="column is-three-fifths-desktop">
+                        <div class="normalAnalytics">
+                            <p class="title is-3 has-text-white-bis has-text-weight-normal">Analysis</p>
+                            <div class="notFound hide">
+                                <p class="is-size-4 has-text-grey has-text-centered">No enough data 😔</p>
+                            </div>
+                            <div class="analytics">
+                                <div class="select is-purplelight is-fullwidth is-small">
+                                    <select>
+                                        <option>All</option>
+                                        <option>Writings</option>
+                                        <option>Speakings</option>
+                                        <option>Craft a Story</option>
+                                        <option>General Practive</option>
+                                        <option>Phonetics Lab</option>
+                                        <option>Caption Craft</option>
+                                    </select>
+                                </div>
+                                <div class="main-container year-stats">
+                                    <div class="month-group">
+                                        <p class="barNum">40</p>
+                                        <div class="bar" style="height: 40px;"></div>
+                                        <p class="month"><span class="is-size-4">21</span><span class="is-size-4">May</span></p>
+                                    </div>
+                                    <div class="month-group">
+                                        <p class="barNum">35</p>
+                                        <div class="bar" style="height: 35px;"></div>
+                                        <p class="month"><span class="is-size-4">22</span><span class="is-size-4">May</span></p>
+                                    </div>
+                                    <div class="month-group">
+                                        <p class="barNum">72</p>
+                                        <div class="bar" style="height: 72px;"></div>
+                                        <p class="month"><span class="is-size-4">23</span><span class="is-size-4">May</span></p>
+                                    </div>
+                                    <div class="month-group">
+                                        <p class="barNum">55</p>
+                                        <div class="bar" style="height: 55px;"></div>
+                                        <p class="month"><span class="is-size-4">24</span><span class="is-size-4">May</span></p>
+                                    </div>
+                                    <div class="month-group">
+                                        <p class="barNum">75</p>
+                                        <div class="bar" style="height: 75px;"></div>
+                                        <p class="month"><span class="is-size-4">25</span><span class="is-size-4">May</span></p>
+                                    </div>
+                                    <div class="month-group">
+                                        <p class="barNum">70</p>
+                                        <div class="bar" style="height: 70px;"></div>
+                                        <p class="month"><span class="is-size-4">26</span><span class="is-size-4">May</span></p>
+                                    </div>
+                                    <div class="month-group active">
+                                        <p class="barNum">30</p>
+                                        <div class="bar" style="height: 30px;"></div>
+                                        <p class="month"><span class="is-size-4">27</span><span class="is-size-4">May</span></p>
+                                    </div>
+                                </div>
+                                <button class="button is-danger">Reset Analysis</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <h2 class="label is-3 has-text-weight-medium">Last Activities</h2>
+                <div class="tableBox">
+                    <table>
+                        <thead>
+                            <tr>
+                                <td class="td-very-small"></td>
+                                <td class="td-small"></td>
+                                <td>Practice</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="td-very-small">2023-5-25</td>
+                                <td>11:20 PM - 11:40 AM</td>
+                                <td>IELTS Writing Part 1</td>
+                            </tr>
+                            <tr>
+                                <td class="td-very-small">2023-5-10</td>
+                                <td>11:20 PM - 11:40 AM</td>
+                                <td>IELTS Speaking Part 1</td>
+                            </tr>
+                            <tr>
+                                <td class="td-very-small">2023-4-28</td>
+                                <td>11:20 PM - 11:40 AM</td>
+                                <td>Craft A Story</td>
+                            </tr>
+                        </tbody>
+                    </table> 
+                </div>
+            </section>
+
+            <section dashSect="misspelling">
+                <h2 class="label is-3 has-text-weight-medium">Misspelling</h2>
+                <div class="tableBox">
+                    <table>
+                        <thead>
+                            <tr>
+                                <td>Word</td>
+                                <td class="td-small">Mistakes</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>hello</td>
+                                <td>5</td>
+                            </tr>
+                            <tr>
+                                <td>better</td>
+                                <td>20</td>
+                            </tr>
+                            <tr>
+                                <td>Paper</td>
+                                <td>6</td>
+                            </tr>
+                        </tbody>
+                    </table> 
+                </div>
+                <button class="button is-purpleGrade is-small" exporter="exportDataTable" fileName="Misspelled words">Export <i class="fa-regular fa-file-pdf"></i></button>
+                <button class="button is-danger is-small" id="resetTable1">Reset <i class="fa-solid fa-rotate-right"></i></button>
+            </section>
+
+            <section dashSect="grammar">
+                <h2 class="label is-3 has-text-weight-medium">Grammar</h2>
+                <div class="tableBox">
+                    <table>
+                        <thead>
+                            <tr>
+                                <td>Grammar</td>
+                                <td class="td-small">Flag </td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Present Perfect</td>
+                                <td class="has-text-danger"><i class="fa-solid fa-flag"></i> <span>10</span></td>
+                            </tr>
+                            <tr>
+                                <td>Present Simple</td>
+                                <td class="has-text-warning"><i class="fa-solid fa-flag"></i> <span>5</span></td>
+                            </tr>
+                            <tr>
+                                <td>Past Simple</td>
+                                <td class="has-text-primary"><i class="fa-solid fa-flag"></i> <span>2</span></td>
+                            </tr>
+                        </tbody>
+                    </table> 
+                </div>
+                <button class="button is-purpleGrade is-small" exporter="exportDataTable" fileName="Grammar mistakes">Export <i class="fa-regular fa-file-pdf"></i></button>
+                <button class="button is-danger is-small" id="resetTable2">Reset <i class="fa-solid fa-rotate-right"></i></button>
+            </section>
+
+            <!-- <section dashPage="subscription">
+                <h2 class="label is-3 has-text-weight-medium">Subscription Table</h2>
+                <div class="pricing-cards columns is-multiline">
+                    <div class="column is-4">
+                        <div class="pricing-card ">
+                            <div class="card-type is-size-6">IELTS</div>
+                            <h1 class="card-price">15.99$</h1>
+                            <h3 class="month">/ Month</h3>
+                            <ul class="lista">
+                                <li class="list-item is-flex is-justify-content-start">
+                                    <i class="fa-solid fa-check"></i>
+                                    <span>Lorem ipsum dolor sit.</span>
+                                </li>
+                                <li class="list-item is-flex is-justify-content-start">
+                                    <i class="fa-solid fa-xmark"></i>
+                                    <span>Lorem ipsum dolor sit.</span>
+                                </li>
+                            </ul>
+                            <button type="button" class="card-btn">Subscripe</button>
+                            <div class="card-bottom">Current</div>
+                        </div>
+                    </div>
+    
+                    <div class="column is-4">
+                        <div class="pricing-card ">
+                            <div class="card-type is-size-6">Easy IELTS</div>
+                            <h1 class="card-price">35.99$</h1>
+                            <h3 class="month">/ Month</h3>
+                            <ul class="lista">
+                                <li class="list-item is-flex is-justify-content-start">
+                                    <i class="fa-solid fa-check"></i>
+                                    <span>Lorem ipsum dolor sit.</span>
+                                </li>
+                                <li class="list-item is-flex is-justify-content-start">
+                                    <i class="fa-solid fa-xmark"></i>
+                                    <span>Lorem ipsum dolor sit.</span>
+                                </li>
+                            </ul>
+                            <button type="button" class="card-btn">Subscripe</button>
+                            <div class="card-bottom">Current</div>
+                        </div>
+                    </div>
+    
+                    <div class="column is-4">
+                        <div class="pricing-card ">
+                            <div class="card-type is-size-6">Full</div>
+                            <h1 class="card-price">40.99$</h1>
+                            <h3 class="month">/ Month</h3>
+                            <ul class="lista">
+                                <li class="list-item is-flex is-justify-content-start">
+                                    <i class="fa-solid fa-check"></i>
+                                    <span>Lorem ipsum dolor sit.</span>
+                                </li>
+                                <li class="list-item is-flex is-justify-content-start">
+                                    <i class="fa-solid fa-xmark"></i>
+                                    <span>Lorem ipsum dolor sit.</span>
+                                </li>
+                            </ul>
+                            <button type="button" class="card-btn">Subscripe</button>
+                            <div class="card-bottom">Current</div>
+                        </div>
+                    </div>
+            
+                </div>
+            </section> -->
+            
+        </div>
+    </div>
+    
+    <%- include('../partials/phoneNav.ejs') %>
+
+</body>
+</html>
+<script src='/models/main.js'></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.5/jspdf.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.16/jspdf.plugin.autotable.min.js"></script>

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<%- include('../partials/head.ejs') %>
+<body>
+    
+    <div style="display: none" id="pageTitle">learn</div>
+
+    <%- include('../partials/desktopNav.ejs') %>
+    <div class="contentBox">
+        <div class="columns is-multiple">
+
+            <div class="column is-two-fifths-desktop is-half-tablet">
+                <p class="label is-size-5-5 has-text-weight-medium has-text-grey">Training on IELTS Sections</p>
+                <div class="train ielts">
+                    <div class="leasonBox">
+                        <div class="is-flex is-justify-content-space-between is-align-items-center">
+                            <i class="fa-solid fa-award"></i>
+                            <h2 class="title is-1">IELTS</h2>
+                        </div>
+                        <p class="subtitle is-6 has-text-centered">Get ready for speaking and writing IELTS test.</p>
+                    </div>
+                    <div class="nestedBoxs block">
+                        <a class="nestedBox" href="/learn/wrting1">
+                            <i class="fa-regular fa-keyboard"></i>
+                            <p class="title is-6">Writing Part 1</p>
+                        </a>
+                        <a class="nestedBox" href="/learn/wrting2">
+                            <i class="fa-sharp fa-solid fa-keyboard"></i>
+                            <p class="title is-6">Writing Part 2</p>
+                        </a>
+                        <a class="nestedBox" href="/learn/speaking1">
+                            <i class="fa-sharp fa-solid fa-microphone"></i>
+                            <p class="title is-6">Speaking Part 1</p>
+                        </a>
+                        <a class="nestedBox" href="/learn/speaking2">
+                            <i class="fa-solid fa-microphone-lines"></i>
+                            <p class="title is-6">Speaking Part 2</p>
+                        </a>
+                        <a class="nestedBox" href="/learn/speaking3">
+                            <i class="fa-sharp fa-solid fa-microphone"></i>
+                            <p class="title is-6">Speaking Part 3</p>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="column is-two-fifths-desktop is-half-tablet">
+                <p class="label is-size-5-5 has-text-weight-medium has-text-grey">Mock test on each section</p>
+                <div class="train easyielts">
+                    <div class="leasonBox">
+                        <div class="is-flex is-justify-content-space-between is-align-items-center">
+                            <i class="fa-solid fa-star-half-stroke is-size-2"></i>
+                            <h2 class="title is-2"><span class="title is-1">IELTS</span> simulation</h2>
+                        </div>
+                        <p class="subtitle is-6 has-text-centered">Mock on Speaking & Writing IELTS Tests.</p>
+                    </div>
+                    <div class="nestedBoxs block">
+                        <a class="nestedBox" href="/learn/simWrite">
+                            <i class="fa-regular fa-keyboard"></i>
+                            <p class="title is-6">Full Writing Test</p>
+                        </a>
+                        <a class="nestedBox" href="/learn/simSpeak">
+                            <i class="fa-solid fa-microphone-lines"></i>
+                            <p class="title is-6">Full Speaking Test</p>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+    <%- include('../partials/phoneNav.ejs') %>
+
+</body>
+</html>
+<script src='/models/main.js'></script>

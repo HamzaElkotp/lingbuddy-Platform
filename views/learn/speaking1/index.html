@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<%- include('./partials/head.ejs') %>
+<body>
+    
+    <nav class="backnav is-flex is-justify-content-space-between is-align-items-center">
+        <a href="../" class="backto"><i class="fa-solid fa-caret-left"></i> Back</a>
+        <p class="subtitle is-5 has-text-weight-mediume has-text-grey-lighter">IELTS Speaking Part 1 Exercise</p>
+    </nav>
+
+    <div class="block contenter train">
+        <div class="instructions" id="instructions">
+            <p class="is-size-3">Exercise Instructions:</p>
+            <ul class="list">
+                <li>Set in a <span class="has-text-primary-dark">quiet</span> place.</li>
+                <li>Allow <span class="has-text-primary-dark">access</span> to your microphone.</li>
+                <li>You will recieve <span class="has-text-purple">5</span> Questions, <span class="has-text-purple">one after one</span>.</li>
+                <li>You have at <span class="has-text-danger">maximum</span> one minute to answer each question.</li>
+                <li>You will hear each question then you can <span class="has-text-primary-dark">record</span> your answer.</li>
+                <li>You can move to the next question after <span class="has-text-success-dark">submiting</span> the previous one.</li>
+                <li>You can hear your answer or re-record it again before moving to the next question</li>
+                <li>After asnwering all questions, <span class="has-text-danger-dark">wait</span> a few seconds to see the correction, notes and score.</li>            
+            </ul>
+            <br>
+            <p class="is-size-6">Click the Button to generate a topic</p>
+            <div class="buttons has-text-centered is-centered">
+                <button class="button is-purpleGrade" id="generateSpeak1">Generate Exercise</button>
+            </div>
+        </div>
+
+        <div class="questions trans" id="questions">
+            <p class="is-size-5" id="question"><span class="has-text-purple">Q1:</span> <span></span> </p>
+            <div class="recordContainer">
+                <div id="timer" class="is-size-2 has-text-centered">01:00</div>
+                <button id="recordBtn" class="record button is-purpleGrade"><i class="fa-solid fa-microphone"></i></button>
+                <button id="stopBtn" class="record button is-purpleGrade stop hide"><i class="fa-solid fa-stop"></i></button>
+                <div id="afterRecord" class="has-text-centered afterRecord trans">
+                    <audio src="" controls></audio>
+                    <div class="buttons is-centered">
+                        <button id="newRecord" class="button is-danger is-rounded is-small"><i class="fa-solid fa-arrow-rotate-right" style="padding-right: 5px;"></i> Re-record</button>
+                        <button id="submit" class="button is-purpleGrade is-rounded is-small">Submit <i class="fa-solid fa-caret-right" style="padding-left: 5px;"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="aitxt txtContentBox trans" id="correctRate">
+            <p class="subtitle is-4 has-text-weight-mediume">Correction & Feedback</p>
+            <div class="txtBox aiTxtBox" id="aiWriting"></div>
+        </div>
+    </div>
+
+</body>
+</html>
+<script src='/models/main.js'></script>
+<script src='/assets/js/callAPI.js'></script>
+<script>
+    document.addEventListener('DOMContentLoaded', APPIELTSSpeak1.init);
+
+
+    // let obj = {
+    //     records:{
+    //         recognition: ""
+    //     }
+    // }
+
+    // function setSpeechText(parent){
+    //     if(window.SpeechRecognition || window.webkitSpeechRecognition){
+    //         window.SpeechRecognition = window.webkitSpeechRecognition;
+    //         parent.records.recognition = new SpeechRecognition();
+    //         parent.records.recognition.interimResults = true;
+
+    //         parent.records.recognition.addEventListener('result', e => {
+    //             const transcript = Array.from(e.results)
+    //                 .map(result => result[0])
+    //                 .map(result => result.transcript)
+    //                 .join('')
+
+    //             console.log(transcript);
+    //         });
+    //         // parent.records.recognition
+    //     }
+    // }
+    // const recognate = (parent)=>{
+    //     parent.records.recognition.start()
+    // }
+    // const stopRecognate = (parent)=>{
+    //     parent.records.recognition.stop()
+    // }
+
+    // setSpeechText(obj)
+
+
+</script>

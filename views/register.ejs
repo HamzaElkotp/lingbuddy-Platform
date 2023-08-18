@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<%- include('./partials/head.ejs') %>
+<body>
+    
+    <div class="contentBox">
+        <div class="columns is-centered">
+            <div class="column is-two-fifths-desktop is-three-fifths-tablet isvertic">
+                <h1 class="title is-size-3 has-text-weight-medium cus60">Join LingBuddy Platform</h1>
+                <form id="registerForm" class="aForm">
+                    <div class="field is-grouped">
+                        <div class="control">
+                            <label class="label has-text-weight-medium cus60">Your First Name</label>
+                            <input class="input" type="text" placeholder="Enter your first name" required id="fname">
+                        </div>
+                        <div class="control">
+                            <label class="label has-text-weight-medium cus60">Your Last Name</label>
+                            <input class="input" type="text" placeholder="Enter your last name" required id="lname">
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label class="label has-text-weight-medium cus60">Your Email</label>
+                        <div class="control">
+                            <input class="input" type="email" placeholder="Enter your Email" required>
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label class="label has-text-weight-medium cus60">Your Password</label>
+                        <div class="control">
+                            <input class="input" type="text" placeholder="Enter your password" required id="password">
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label class="label has-text-weight-medium cus60">Choose Your Account Type</label>
+                        <div class="control">
+                            <div class="select is-fullwidth">
+                                <select id="type">
+                                    <option value="student">Student</option>
+                                    <option value="teacher">Teacher</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <div class="control">
+                            <button class="button cus60 is-fullwidth">Start Your Journey</button>
+                        </div>
+                    </div>
+                    <div class="aSvg rocketa">
+                        <embed src="/img/rocket.svg" class="rocket" type="image/svg+xml" />
+                    </div>
+                    <p class="cus60 has-text-centered" id="info"></p>
+                </form>  
+            </div>
+        </div>
+    </div>
+          
+</body>
+</html>
+<script src='/models/main.js'></script>

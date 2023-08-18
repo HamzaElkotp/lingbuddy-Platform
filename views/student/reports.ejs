@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html>
+<%- include('../partials/head.ejs') %>
+<body>
+    
+    <div style="display: none" id="pageTitle">reports</div>
+
+    <%- include('../partials/desktopNav.ejs') %>        
+
+    <div class="contentBox">
+        <div class="lessonsPage">
+            <p class="label is-medium has-text-weight-medium has-text-grey">IELTS Sections Training</p>
+            <div class="type-selector">
+                <span class="tag is-medium is-purpleGradedeg" showerData="w1">Writing 1</span>
+                <span class="tag is-light is-medium is-purpleGradedeg" showerData="w2">Writing 2</span>
+                <span class="tag is-light is-medium is-purpleGradedeg" showerData="s1">Speaking 1</span>
+                <span class="tag is-light is-medium is-purpleGradedeg" showerData="s2">Speaking 2</span>
+                <span class="tag is-light is-medium is-purpleGradedeg" showerData="s3">Speaking 3</span>
+            </div>
+
+            <div class="column is-6 is-paddingless margintop-10">
+                <div class="field has-addons">
+                    <div class="control is-w100 is-flex">
+                        <input class="input is-fullwidth" type="text" placeholder="Search by ID, Date, Name, Text, anything" searchPlace="w1">
+                        <button class="button is-purpleGrade" searchbtn><i class="fas fa-search" style="padding-right: 10px;"></i> search</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="reportBoxes">
+                <div toShowData="w1" class="reportSection show">
+                    <div class="columns is-multiline">
+                        <div class="column is-3 reportData">
+                            <div class="reportBox">
+                                <p class="is-size-7">ID: 789355</p>
+                                <p class="is-size-6">Created At: <span>2023/5/20</span></p>
+                                <p class="is-size-6">Score: <span>6.5</span></p>
+                                <div class="is-size-6">Your Writing: 
+                                    <p class="is-size-7 longTxt">In the provided maps illustrate the changes which happened to</p>
+                                </div>
+                                <div class="is-size-6">Feedback: 
+                                    <p class="is-size-7 longTxt">Your essay provides a clear overview of</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="column is-3 reportData" style="display: none;">
+                            <div class="reportBox">
+                                <p class="is-size-7">ID: 1098132</p>
+                                <p class="is-size-6">Created At: <span>2023/5/20</span></p>
+                                <p class="is-size-6">Score: <span>5</span></p>
+                                <div class="is-size-6">Your Writing: <p class="is-size-7 longTxt">The pie chart illustrates the percentage of</p></div>
+                                <div class="is-size-6">Feedback: <p class="is-size-7 longTxt">Your essay provides a clear and concise</p></div>
+                            </div>
+                        </div>
+
+                        <div class="column is-3 reportData" style="display: none;">
+                            <div class="reportBox">
+                                <p class="is-size-7">ID: 4569324</p>
+                                <p class="is-size-6">Created At: <span>2023/5/19</span></p>
+                                <p class="is-size-6">Score: <span>6</span></p>
+                                <div class="is-size-6">Your Writing: <p class="is-size-7 longTxt">The line graph compares the number of cars</p></div>
+                                <div class="is-size-6">Feedback: <p class="is-size-7 longTxt">Overall, your essay provides a clear and concise</p></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div toShowData="w2" class="reportSection">
+                    <div class="columns is-multiline">
+                        <div class="column is-3 reportData">
+                            <div class="reportBox">
+                                <p class="is-size-7">ID: 920324</p>
+                                <p class="is-size-6">Created At: <span>2023/5/19</span></p>
+                                <p class="is-size-6">Score: <span>8</span></p>
+                                <div class="is-size-6">Your Writing: 
+                                    <p class="is-size-7 longTxt">Taking risks is important for people lives, whether in their</p>
+                                </div>
+                                <div class="is-size-6">Feedback: 
+                                    <p class="is-size-7 longTxt">The essay attempts to discuss the advantages and disadva</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="column is-3 reportData" style="display: none;">
+                            <div class="reportBox">
+                                <p class="is-size-7">ID: 7092241</p>
+                                <p class="is-size-6">Created At: <span>2023/5/19</span></p>
+                                <p class="is-size-6">Score: <span>6.5</span></p>
+                                <div class="is-size-6">Your Writing: <p class="is-size-7 longTxt">The diagram above illustrates the process of plasti</p></div>
+                                <div class="is-size-6">Feedback: <p class="is-size-7 longTxt">Here are some suggestions for improvement:</p></div>
+                            </div>
+                        </div>
+
+                        <div class="column is-3 reportData" style="display: none;">
+                            <div class="reportBox">
+                                <p class="is-size-7">ID: 302781</p>
+                                <p class="is-size-6">Created At: <span>2023/5/18</span></p>
+                                <p class="is-size-6">Score: <span>6</span></p>
+                                <div class="is-size-6">Your Writing: <p class="is-size-7 longTxt">In the future, the current vehicles such as cars, buses,</p></div>
+                                <div class="is-size-6">Feedback: <p class="is-size-7 longTxt">Firstly, there are several errors in grammar and word</p></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div toShowData="s1" class="reportSection">
+                    <div class="columns is-multiline">
+                        <div class="column is-3 reportData">
+                            <div class="reportBox">
+                                <p class="is-size-7">ID: 212350</p>
+                                <p class="is-size-6">Created At: <span>2023/5/20</span></p>
+                                <p class="is-size-6">Score: <span>6.5</span></p>
+                                <p class="is-size-6">Avertage Time: <span>50s per question</span></p>
+                            </div>
+                        </div>
+
+                        <div class="column is-3 reportData">
+                            <div class="reportBox">
+                                <p class="is-size-7">ID: 0938492</p>
+                                <p class="is-size-6">Created At: <span>2023/5/20</span></p>
+                                <p class="is-size-6">Score: <span>5</span></p>
+                                <p class="is-size-6">Avertage Time: <span>39s per question</span></p>
+                            </div>
+                        </div>
+
+                        <div class="column is-3 reportData">
+                            <div class="reportBox">
+                                <p class="is-size-7">ID: 8924098</p>
+                                <p class="is-size-6">Created At: <span>2023/5/19</span></p>
+                                <p class="is-size-6">Score: <span>6</span></p>
+                                <p class="is-size-6">Avertage Time: <span>45s per question</span></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div toShowData="s2" class="reportSection">
+                    <div class="columns is-multiline">
+                        <div class="column is-3 reportData">
+                            <div class="reportBox">
+                                <p class="is-size-7">ID: 789025</p>
+                                <p class="is-size-6">Created At: <span>2023/5/19</span></p>
+                                <p class="is-size-6">Score: <span>4.5</span></p>
+                                <p class="is-size-6">Avertage Time: <span>56s per question</span></p>
+                            </div>
+                        </div>
+
+                        <div class="column is-3 reportData">
+                            <div class="reportBox">
+                                <p class="is-size-7">ID: 6912049</p>
+                                <p class="is-size-6">Created At: <span>2023/5/18</span></p>
+                                <p class="is-size-6">Score: <span>6</span></p>
+                                <p class="is-size-6">Avertage Time: <span>52s per question</span></p>
+                            </div>
+                        </div>
+
+                        <div class="column is-3 reportData">
+                            <div class="reportBox">
+                                <p class="is-size-7">ID: 729049</p>
+                                <p class="is-size-6">Created At: <span>2023/5/18</span></p>
+                                <p class="is-size-6">Score: <span>4</span></p>
+                                <p class="is-size-6">Avertage Time: <span>45s per question</span></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div toShowData="s3" class="reportSection">
+                    <div class="columns is-multiline">
+                        <div class="column is-3 reportData">
+                            <div class="reportBox">
+                                <p class="is-size-7">ID: 9180443</p>
+                                <p class="is-size-6">Created At: <span>2023/5/20</span></p>
+                                <p class="is-size-6">Score: <span>6</span></p>
+                                <p class="is-size-6">Avertage Time: <span>50s per question</span></p>
+                            </div>
+                        </div>
+
+                        <div class="column is-3 reportData">
+                            <div class="reportBox">
+                                <p class="is-size-7">ID: 0901234</p>
+                                <p class="is-size-6">Created At: <span>2023/5/19</span></p>
+                                <p class="is-size-6">Score: <span>5.5</span></p>
+                                <p class="is-size-6">Avertage Time: <span>39s per question</span></p>
+                            </div>
+                        </div>
+
+                        <div class="column is-3 reportData">
+                            <div class="reportBox">
+                                <p class="is-size-7">ID: 7890358</p>
+                                <p class="is-size-6">Created At: <span>2023/5/20</span></p>
+                                <p class="is-size-6">Score: <span>8.5</span></p>
+                                <p class="is-size-6">Avertage Time: <span>45s per question</span></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="is-centered margintop-15">
+                <button class="button is-purpleGradedeg" loadPlace="w1">Show more</button>
+            </div>
+        </div>
+
+        <hr>
+        
+        <div class="lessonsPage">
+            <p class="label is-medium has-text-weight-medium has-text-grey">IELTS Sections Mock test</p>
+            <div class="type-selector">
+                <span class="tag is-medium is-purpleGradedeg" showerData="wmoctest">Writing Moc Tests</span>
+                <span class="tag is-light is-medium is-purpleGradedeg" showerData="smoctest">Speaking Moc Tests</span>
+            </div>
+
+            <div class="column is-6 is-paddingless margintop-10">
+                <div class="field has-addons">
+                    <div class="control is-w100 is-flex">
+                        <input class="input is-fullwidth" type="text" placeholder="Search by ID, Date, Name, Text, anything" searchPlace="wmoctest">
+                        <button class="button is-purpleGrade" searchbtn><i class="fas fa-search" style="padding-right: 10px;"></i> search</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="reportBoxes">
+                <div toShowData="wmoctest" class="reportSection show">
+                    <div class="columns is-multiline">
+                        <div class="column is-3 reportData">
+                            <div class="train">
+                                <div class="reportBox">
+                                    <p class="is-size-7">ID: 789204</p>
+                                    <p class="is-size-6">Created At: <span>2023/5/20</span></p>
+                                    <p class="is-size-6">Number of words: <span>536</span></p>
+                                    <p class="is-size-6">Number of statements: <span>18</span></p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="column is-3 reportData" style="display: none;">
+                            <div class="train">
+                                <div class="reportBox">
+                                    <p class="is-size-7">ID: 920324</p>
+                                    <p class="is-size-6">Created At: <span>2023/5/19</span></p>
+                                    <p class="is-size-6">Score: <span>8</span></p>
+                                    <div class="is-size-6">Your Writing: 
+                                        <p class="is-size-7 longTxt">Taking risks is important for people lives, whether in their</p>
+                                    </div>
+                                    <div class="is-size-6">Feedback: 
+                                        <p class="is-size-7 longTxt">The essay attempts to discuss the advantages and disadva</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="column is-3 reportData" style="display: none;">
+                            <div class="train">
+                                <div class="reportBox">
+                                    <p class="is-size-7">ID: 7092241</p>
+                                    <p class="is-size-6">Created At: <span>2023/5/19</span></p>
+                                    <p class="is-size-6">Score: <span>6.5</span></p>
+                                    <div class="is-size-6">Your Writing: <p class="is-size-7 longTxt">The diagram above illustrates the process of plasti</p></div>
+                                    <div class="is-size-6">Feedback: <p class="is-size-7 longTxt">Here are some suggestions for improvement:</p></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="column is-3 reportData" style="display: none;">
+                            <div class="train">
+                                <div class="reportBox">
+                                    <p class="is-size-7">ID: 302781</p>
+                                    <p class="is-size-6">Created At: <span>2023/5/18</span></p>
+                                    <p class="is-size-6">Score: <span>6</span></p>
+                                    <div class="is-size-6">Your Writing: <p class="is-size-7 longTxt">In the future, the current vehicles such as cars, buses,</p></div>
+                                    <div class="is-size-6">Feedback: <p class="is-size-7 longTxt">Firstly, there are several errors in grammar and word</p></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div toShowData="smoctest" class="reportSection">
+                    <div class="columns is-multiline">No Data, Please practice!
+                    </div>
+                </div>
+            </div>
+
+            <div class="is-centered margintop-15">
+                <button class="button is-purpleGradedeg" loadPlace="wmoctest">Show more</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="popup-overlay dataPop">
+        <div class="popup-container" id="popHtml">
+            <div class="buttons">
+                <button class="button is-purpleGrade is-small" id="exportSheet" fileName="report"><i class="fa-solid fa-download"></i></button>
+                <i class="fas fa-times" onclick="hideReportDataPopup()"></i>
+            </div>
+            <p class="is-size-6">ID: <span class="is-size-7" fildeid="">789355</span></p>
+            <p class="is-size-6">At: <span class="is-size-7">2023/5/20</span></p>
+            <p class="label has-text-weight-medium has-text-grey">Your Submition</p>
+            <p class="is-size-5-5 writings">In the provided <span class="spelling">mups</span> illustrate the changes which <span class="spelling">happend</span> to the road access to a city hospital from two years, 2007 and 2010.
+Overall, there is a noticed change happened to the two points which both of the Ring road and the City road meet the Hospital <span class="spelling">roaad</span>. In these two points there are two roundabouts were added to them.
+By looking <span class="spelling"></span>deepily</span> to the new map, a new bus station was built instead of the western and eastern bus stop stations. This new bus station was linked to the two roundabouts. In addition, the car park was for both of the staff and the public visitors in 2007, but in 2010, it became just for staffs’ cars. Equally important, a new car park was established in 2010, to allow just public to park their cars there. Finally each of the new car parks has an entrance from the Ring road.
+During these three years, the hospital build is the only thing that did not change.</p>
+            <hr>
+            <p class="label has-text-weight-medium has-text-grey">Feedback and correction</p>
+            <p class="is-size-5-5 writings"><span class="important">Band:</span>6.5
+
+Overall, the essay provides a clear description of the changes that occurred in the road access to a city hospital over a three-year period. However, there are some grammar and spelling mistakes, as well as some areas that could be improved.
+
+<span class="important">Suggestions:</span>
+- Begin with an introductory sentence that clearly states what the essay is about.
+- Use more precise language to describe the changes, such as "two roundabouts were added" instead of "there are two roundabouts were added."
+- Use more specific language to describe the location of the bus station and car parks, such as "the new bus station was built at the intersection of the Ring road and Hospital road" and "the new car park for public visitors was established on the east side of the hospital, with an entrance from the Ring road."
+- Avoid using repetitive language, such as using "staff" twice in the same sentence.
+- Use more accurate verb tenses, such as "the hospital building remained unchanged" instead of "the hospital build is the only thing that did not change."
+
+<span class="important">Grammar and spelling mistakes:</span>
+- "there is a noticed change happened" should be "a noticeable change occurred."
+- "were added to them" could be "were added at these locations."
+- "car park was for both of the staff and the public visitors" could be "car park was for both staff and public visitors."
+- "staffs’ cars" should be "staff's cars."
+- "Equally important" should be "Similarly" or "Additionally."
+- "to allow just public to park their cars there" should be "to allow only the public to park their cars there."</p>
+        </div>
+    </div>  
+
+    <%- include('../partials/phoneNav.ejs') %>
+
+</body>
+</html>
+<script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+<script src='/models/main.js'></script>

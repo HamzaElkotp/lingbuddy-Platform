@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<%- include('./partials/head.ejs') %>
+<body>
+    
+    <nav class="backnav is-flex is-justify-content-space-between is-align-items-center">
+        <a href="../" class="backto"><i class="fa-solid fa-caret-left"></i> Back</a>
+        <p class="subtitle is-5 has-text-weight-mediume has-text-grey-lighter">Story Game Practice for Writing</p>
+    </nav>
+
+    <div class="block contenter train">
+        <div class="chat" id="chat">
+
+        </div>
+        <div class="controler innerContainer is-flex">
+            <textarea name="userMSG" id="getWriting"class="input getWriting" placeholder="Write the full story or part of it to play"></textarea>
+            <button class="sendBTN contbtn" id="submitWrite"><i class="fa-solid fa-paper-plane"></i></button>
+        </div>
+        <p class="is-size-7"><span id="wordsnum" miner="20">0</span> / <span class="has-text-success">20</span> words</p>
+    </div>
+
+    <div class="boxShadowbg"></div>
+    <div class="columns apsoluted is-centered studyOptions" id="answerpopup">
+        <div class="column is-5 has-text-centered">
+            <div class="optioner" id="goTopic">
+                <i class="fa-regular fa-newspaper is-size-2"></i>
+                <p class="is-size-4">I've a ready Story</p>
+            </div>
+        </div>
+        <div class="column is-5 has-text-centered">
+            <div class="optioner" id="gnrateTopic">
+                <i class="fa-solid fa-file-pen is-size-2"></i>
+                <p class="is-size-4">Generate a Story</p>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
+<script src='/models/main.js'></script>
+<script src='/assets/js/callAPI.js'></script>
+<script>
+    writeStory.init()
+</script>
