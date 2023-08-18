@@ -446,3 +446,15 @@ registerForm?.addEventListener('submit', async (event) => {
     }
 });
 
+
+
+const logoutBtn = document.querySelector('#logout');
+logoutBtn?.addEventListener('click', (e)=>{
+    e.preventDefault();
+    logout()
+})
+function logout(){
+    window.localStorage.removeItem('userLogin');
+    location.href= `${window.location.origin}/login/`;
+}
+
