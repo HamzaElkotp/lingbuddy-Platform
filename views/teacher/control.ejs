@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html>
+<%- include('../partials/head.ejs') %>
+<body>
+    
+    <div style="display: none" id="pageTitle">dashboard</div>
+
+    <%- include('../partials/desktopNavT.ejs') %>
+
+    <div class="contentBox nopadd">
+        <div class="studentInfo">
+            <p class="cus60 is-size-65">Student: <span class="cus70"><%= `${jsonResponse.userData.firstName} ${jsonResponse.userData.lastName}` %></span> | <span class="cus60"><%= `${jsonResponse.userData.email}` %></span></p>
+        </div>
+        
+        <nav class="navigation">
+            <span class="active" dashpage="reports">Reports</span>
+            <span dashpage="roadmaps">Roadmaps</span>
+            <span dashpage="tasks">Tasks</span>
+        </nav>
+
+        <div class="theContent">
+
+            <section dashSect="reports" class="active">
+                <div class="lessonsPage">
+                    <p class="label is-medium has-text-weight-medium has-text-grey">IELTS Sections Training</p>
+                    
+                    <div class="type-selector">
+                        <span class="tag is-medium is-purpleGradedeg" showerData="w1">Writing 1</span>
+                        <span class="tag is-light is-medium is-purpleGradedeg" showerData="w2">Writing 2</span>
+                        <span class="tag is-light is-medium is-purpleGradedeg" showerData="s1">Speaking 1</span>
+                        <span class="tag is-light is-medium is-purpleGradedeg" showerData="s2">Speaking 2</span>
+                        <span class="tag is-light is-medium is-purpleGradedeg" showerData="s3">Speaking 3</span>
+                    </div>
+        
+                    <div class="column is-6 is-paddingless margintop-10">
+                        <div class="field has-addons">
+                            <div class="control is-w100 is-flex">
+                                <input class="input is-fullwidth" type="text" placeholder="Search by ID, Date, Name, Text, anything" searchPlace="w1">
+                                <button class="button is-purpleGrade inp" searchbtn><i class="fas fa-search" style="padding-right: 10px;"></i> search</button>
+                            </div>
+                        </div>
+                    </div>
+        
+                    <div class="reportBoxes">
+                        <div toShowData="w1" class="reportSection show">
+                            <div class="columns is-multiline" id="w1">
+                                <% jsonResponse.writingReports.forEach((report, i) => { %>
+                                    <% if (report.type == "w1") {%>
+                                        <div class="column is-3 reportData" repoId="<%= report._id%>">
+                                            <div class="reportBox">
+                                                <p class="is-size-7">Created At: 
+                                                    <%time = report.createdAt%>
+                                                    <%date = new Date(time)%>
+                                                    <%day = date.getDate()%>
+                                                    <%month = date.getMonth() + 1;%>
+                                                    <%month = date.getMonth() + 1;%>
+                                                    <span class="dt"><%= `${day.toString().padStart(2, '0')}/${month.toString().padStart(2, '0')}`%></span>
+                                                </p>
+                                                <p class="is-size-6">Score: <span class="sc"><%= report.score %></span></p>
+                                                <div class="is-size-6">Question: 
+                                                    <p class="is-size-7 longTxt qu"><%= report.question.length > 0 ? report.question : "-" %></p>
+                                                </div>
+                                                <div class="is-size-6">Student Answer: 
+                                                    <p class="is-size-7 longTxt stf"><%= report.answer %></p>
+                                                </div>
+                                                <div class="is-size-6">AI Feedback: 
+                                                    <p class="is-size-7 longTxt aif"><%= report.aifeedback %></p>
+                                                </div>
+                                                <div class="is-size-6">Your Feedback: 
+                                                    <p class="is-size-7 longTxt tef"><%= report.teacherfeedback.length > 0 ? report.teacherfeedback : "-" %></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                <% }}); %>
+                            </div>
+                        </div>
+
+                        <div toShowData="w2" class="reportSection">
+                            <div class="columns is-multiline" id="w2">
+                                <% jsonResponse.writingReports.forEach((report, i) => { %>
+                                    <% if (report.type == "w2") {%>
+                                        <div class="column is-3 reportData" repoId="<%= report._id%>">
+                                            <div class="reportBox">
+                                                <p class="is-size-7">Created At: 
+                                                    <%time = report.createdAt%>
+                                                    <%date = new Date(time)%>
+                                                    <%day = date.getDate()%>
+                                                    <%month = date.getMonth() + 1;%>
+                                                    <%month = date.getMonth() + 1;%>
+                                                    <span class="dt"><%= `${day.toString().padStart(2, '0')}/${month.toString().padStart(2, '0')}`%></span>
+                                                </p>
+                                                <p class="is-size-6">Score: <span class="sc"><%= report.score %></span></p>
+                                                <div class="is-size-6">Question: 
+                                                    <p class="is-size-7 longTxt qu"><%= report.question.length > 0 ? report.question : "-" %></p>
+                                                </div>
+                                                <div class="is-size-6">Student Answer: 
+                                                    <p class="is-size-7 longTxt stf"><%= report.answer %></p>
+                                                </div>
+                                                <div class="is-size-6">AI Feedback: 
+                                                    <p class="is-size-7 longTxt aif"><%= report.aifeedback %></p>
+                                                </div>
+                                                <div class="is-size-6">Your Feedback: 
+                                                    <p class="is-size-7 longTxt tef"><%= report.teacherfeedback.length > 0 ? report.teacherfeedback : "-" %></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                <% }}); %>
+                            </div>
+                        </div>
+                        <div toShowData="s1" class="reportSection">
+                            <div class="columns is-multiline" id="s1">
+                                <h1 class="cus60 is-size-6">Currently we turned off Speakings reports, to not put the Database under pressure, because we are using database free tier to just finish the MVP. Final product will support this feature!</h1>
+                            </div>
+                        </div>
+                        <div toShowData="s2" class="reportSection">
+                            <div class="columns is-multiline" id="s2">
+                                <h1 class="cus60 is-size-6">Currently we turned off Speakings reports, to not put the Database under pressure, because we are using database free tier to just finish the MVP. Final product will support this feature!</h1>
+                            </div>
+                        </div>
+                        <div toShowData="s3" class="reportSection">
+                            <div class="columns is-multiline" id="s3">
+                                <h1 class="cus60 is-size-6">Currently we turned off Speakings reports, to not put the Database under pressure, because we are using database free tier to just finish the MVP. Final product will support this feature!</h1>
+                            </div>
+                        </div>
+                    </div>
+        
+                    <div class="is-centered margintop-15">
+                        <button class="button is-purpleGradedeg" loadPlace="w1">Show more</button>
+                    </div>
+                </div>
+
+                <hr>
+                
+                <div class="lessonsPage">
+                    <p class="label is-medium has-text-weight-medium has-text-grey">IELTS Sections Mock test</p>
+                    <div class="type-selector">
+                        <span class="tag is-medium is-purpleGradedeg" showerData="wmoctest">Writing Moc Tests</span>
+                        <span class="tag is-light is-medium is-purpleGradedeg" showerData="smoctest">Speaking Moc Tests</span>
+                    </div>
+        
+                    <div class="column is-6 is-paddingless margintop-10">
+                        <div class="field has-addons">
+                            <div class="control is-w100 is-flex">
+                                <input class="input is-fullwidth" type="text" placeholder="Search by ID, Date, Name, Text, anything" searchPlace="wmoctest">
+                                <button class="button is-purpleGrade inp" searchbtn><i class="fas fa-search" style="padding-right: 10px;"></i> search</button>
+                            </div>
+                        </div>
+                    </div>
+        
+                    <div class="reportBoxes">
+                        <div toShowData="wmoctest" class="reportSection show">
+                            <div class="columns is-multiline" id="wm">
+                                <% jsonResponse.writingMockReports.forEach((report, i) => { %>
+                                    <div class="column is-3 reportData" repoId="<%= report._id%>">
+                                        <div class="reportBox">
+                                            <p class="is-size-7">Created At: 
+                                                <%time = report.createdAt%>
+                                                <%date = new Date(time)%>
+                                                <%day = date.getDate()%>
+                                                <%month = date.getMonth() + 1;%>
+                                                <%month = date.getMonth() + 1;%>
+                                                <span class="dt"><%= `${day.toString().padStart(2, '0')}/${month.toString().padStart(2, '0')}`%></span>
+                                            </p>
+                                            <p class="is-size-6">Score: <span class="sc"><%= report.score %></span></p>
+                                            <div class="is-hidden">
+                                                <p class="qu1"><%= report.questions[0] %></span></p>
+                                                <p class="qu2"><%= report.questions[1] %></span></p>
+                                                
+                                                <p class="ans1"><%= report.answers[0] %></span></p>
+                                                <p class="ans2"><%= report.answers[1] %></span></p>
+
+                                                <p class="aif1"><%= report.aifeedbacks[0] %></span></p>
+                                                <p class="aif2"><%= report.aifeedbacks[1] %></span></p>
+                                            </div>
+                                            <div class="is-size-6">Your Feedback: 
+                                                <p class="is-size-7 longTxt tef"><%= report.teacherfeedback.length > 0 ? report.teacherfeedback : "-" %></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                <% }); %>
+                            </div>
+                        </div>
+                        <div toShowData="smoctest" class="reportSection">
+                            <div class="columns is-multiline">
+                                <h1 class="cus60 is-size-6">Currently we turned off Speakings reports, to not put the Database under pressure, because we are using database free tier to just finish the MVP. Final product will support this feature!</h1>
+                            </div>
+                        </div>
+                    </div>
+        
+                    <div class="is-centered margintop-15">
+                        <button class="button is-purpleGradedeg" loadPlace="wmoctest">Show more</button>
+                    </div>
+                </div>
+            </section>
+
+            <section dashSect="roadmaps">
+                <h2 class="label is-3 has-text-weight-medium">Scheduled Meetings</h2>
+                
+                <div class="columns reportSection show meetings is-multiline" id="meetingsColmns">
+                    
+                </div>
+            </section>
+
+            <section dashSect="tasks">
+                <div class="is-flex marginBottom10 is-justify-content-space-between is-align-items-center">
+                    <h2 class="label is-3 has-text-weight-medium">Student Tasks</h2>
+                    <a class="button is-purpleGrade" href="../tasks/newtask/<%= jsonResponse.userData.email %>" id="newMeetLink"><i class="fa-solid fa-plus"></i> New Task</a>            
+                </div>
+            </section>
+            
+        </div>
+    </div>
+    
+    <div class="popup-overlay dataPop">
+        <div class="popup-container" id="popHtml">
+            <div class="buttons">
+                <button class="button is-purpleGrade is-small" id="exportSheet" fileName="report"><i class="fa-solid fa-download"></i></button>
+                <i class="fas fa-times" onclick="hideReportDataPopup()"></i>
+            </div>
+            <p class="is-size-6">At: <span class="is-size-65" id="repoDate">2023/5/20</span></p>
+            <p class="is-size-55"><span class="important">Band: </span><span id="scoreNum">6.5</span></p>
+            
+            <div id="writing" class="contBoxer is-hidden">
+                <p class="label has-text-weight-medium cus40">Question</p>
+                <p class="is-size-5-5 writings" job="question"></p>
+                    <hr class="is-small is-light">
+                <p class="label has-text-weight-medium cus40">Student Answer</p>
+                <p class="is-size-5-5 writings" job="submition"></p>
+                    <hr class="is-small is-light">
+                <p class="label has-text-weight-medium cus40">Feedback and correction</p>
+                <p class="is-size-5-5 writings" job="feedback"></p>
+                    <hr class="is-small is-light">
+                <p class="label has-text-weight-medium cus40">Teacher Notes</p>
+                <div class="field">
+                    <div class="control">
+                        <textarea job="teacherNotes" placeholder="Write your notes here and click save, Your notes will appear to your student" class="textarea"></textarea>
+                    </div>
+                </div>
+                <button class="saveTnotes button cus60" id="saveWritingsEdit" repoIdT="">Save Your Notes</button>
+            </div>
+
+            <div id="speaking1" class="contBoxer is-hidden">
+                <p class="label has-text-weight-medium cus40">Question 1</p>
+                <p class="is-size-5-5 writings" job="question1"></p>
+                <p class="label has-text-weight-medium cus40">Your First Question Answer</p>
+                <audio controls>
+                    <source src="" type="audio/ogg" job="submition1">
+                </audio> 
+
+                <hr class="is-medium">
+
+                <p class="label has-text-weight-medium cus40">Question 2</p>
+                <p class="is-size-5-5 writings" job="question2"></p>
+                <p class="label has-text-weight-medium cus40">Your Second Question Answer</p>
+                <audio controls>
+                    <source src="" type="audio/ogg" job="submition2">
+                </audio> 
+
+                <hr class="is-medium">
+
+                <p class="label has-text-weight-medium cus40">Question 3</p>
+                <p class="is-size-5-5 writings" job="question3"></p>
+                <p class="label has-text-weight-medium cus40">Your Third Question Answer</p>
+                <audio controls>
+                    <source src="" type="audio/ogg" job="submition3">
+                </audio> 
+
+                <hr class="is-large">
+
+                <p class="label has-text-weight-medium cus40">Feedback and correction</p>
+                <p class="is-size-5-5 writings" job="feedback"></p>
+                    <hr class="is-small is-light">
+                <p class="label has-text-weight-medium cus40">Teacher Notes</p>
+                <p class="is-size-5-5 writings" job="teacherNotes"></p>
+            </div>
+
+            <div id="speaking2" class="contBoxer is-hidden">
+                <p class="label has-text-weight-medium cus40">Question</p>
+                <p class="is-size-5-5 writings" job="question"></p>
+
+                <hr class="is-meduim  is-light">
+
+                <p class="label has-text-weight-medium cus40">Your Answer</p>
+                <audio controls>
+                    <source src="" type="audio/ogg" job="submition1">
+                </audio> 
+
+                <hr class="is-meduim is-light">
+
+                <p class="label has-text-weight-medium cus40">Feedback and correction</p>
+                <p class="is-size-5-5 writings" job="feedback"></p>
+
+                <hr class="is-meduim is-light">
+
+                <p class="label has-text-weight-medium cus40">Teacher Notes</p>
+                <p class="is-size-5-5 writings" job="teacherNotes"></p>
+            </div>
+
+            <div id="speaking3" class="contBoxer is-hidden">
+                <p class="label has-text-weight-medium cus40">Question 1</p>
+                <p class="is-size-5-5 writings" job="question1"></p>
+                <p class="label has-text-weight-medium cus40">Your First Question Answer</p>
+                <audio controls>
+                    <source src="" type="audio/ogg" job="submition1">
+                </audio> 
+
+                <hr class="is-medium">
+
+                <p class="label has-text-weight-medium cus40">Question 2</p>
+                <p class="is-size-5-5 writings" job="question2"></p>
+                <p class="label has-text-weight-medium cus40">Your Second Question Answer</p>
+                <audio controls>
+                    <source src="" type="audio/ogg" job="submition2">
+                </audio> 
+
+                <hr class="is-medium">
+
+                <p class="label has-text-weight-medium cus40">Question 3</p>
+                <p class="is-size-5-5 writings" job="question3"></p>
+                <p class="label has-text-weight-medium cus40">Your Third Question Answer</p>
+                <audio controls>
+                    <source src="" type="audio/ogg" job="submition3">
+                </audio>
+
+                <hr class="is-large">
+
+                <p class="label has-text-weight-medium cus40">Feedback and correction</p>
+                <p class="is-size-5-5 writings" job="feedback"></p>
+                    <hr class="is-small is-light">
+                <p class="label has-text-weight-medium cus40">Teacher Notes</p>
+                <p class="is-size-5-5 writings" job="teacherNotes"></p>
+            </div>
+
+            <div id="writeMock" class="contBoxer is-hidden">
+                <p class="label has-text-weight-medium cus30 is-size-5">Writing Part 1</p>
+
+                <p class="label has-text-weight-medium cus40">Part 1 Question</p>
+                <p class="is-size-5-5 writings" job="question1"></p>
+                    <hr class="is-small is-light">
+                <p class="label has-text-weight-medium cus40">Your Part 1 Answer</p>
+                <p class="is-size-5-5 writings" job="submition1"></p>
+                    <hr class="is-small is-light">
+                <p class="label has-text-weight-medium cus40">Part 1 Feedback and correction</p>
+                <p class="is-size-5-5 writings" job="feedback1"></p>
+
+                <hr class="is-small is-large">
+
+                <p class="label has-text-weight-medium cus30 is-size-5">Writing Part 2</p>
+
+                <p class="label has-text-weight-medium cus40">Part 2 Question</p>
+                <p class="is-size-5-5 writings" job="question2"></p>
+                    <hr class="is-small is-light">
+                <p class="label has-text-weight-medium cus40">Your Part 2 Answer</p>
+                <p class="is-size-5-5 writings" job="submition2"></p>
+                    <hr class="is-small is-light">
+                <p class="label has-text-weight-medium cus40">Part 2 Feedback and correction</p>
+                <p class="is-size-5-5 writings" job="feedback2"></p>
+                    <hr class="is-small is-light">
+
+                <div class="field">
+                    <div class="control">
+                        <textarea job="teacherNotes" placeholder="Write your notes here and click save, Your notes will appear to your student" class="textarea"></textarea>
+                    </div>
+                </div>
+                <button class="saveTnotes button cus60" id="saveWritingsEdit" repoIdT="">Save Your Notes</button>
+            </div>
+
+            <div id="speakMock" class="contBoxer is-hidden">
+                <p class="label has-text-weight-medium cus30 is-size-5">speaking Part 1</p>
+                <div>
+                    <p class="label has-text-weight-medium cus40">Question 1</p>
+                    <p class="is-size-5-5 writings" job="question11"></p>
+                    
+                    <p class="label has-text-weight-medium cus40">Your Question 1 Answer</p>
+                    <audio controls>
+                        <source src="" type="audio/ogg" job="submition11">
+                    </audio> 
+                    <hr class="is-medium is-light">
+                </div>
+                <div>
+                    <p class="label has-text-weight-medium cus40">Question 2</p>
+                    <p class="is-size-5-5 writings" job="question12"></p>
+                    
+                    <p class="label has-text-weight-medium cus40">Your Question 2 Answer</p>
+                    <audio controls>
+                        <source src="" type="audio/ogg" job="submition12">
+                    </audio> 
+                    <hr class="is-medium is-light">
+                </div>
+                <div>
+                    <p class="label has-text-weight-medium cus40">Question 3</p>
+                    <p class="is-size-5-5 writings" job="question13"></p>
+                        
+                    <p class="label has-text-weight-medium cus40">Your Question 3 Answer</p>
+                    <audio controls>
+                        <source src="" type="audio/ogg" job="submition13">
+                    </audio> 
+                </div>
+
+                <hr class="is-large is-light">
+
+                <p class="label has-text-weight-medium cus30 is-size-5">speaking Part 2</p>
+                <div>
+                    <p class="label has-text-weight-medium cus40">Question</p>
+                    <p class="is-size-5-5 writings" job="question2"></p>
+                        
+                    <p class="label has-text-weight-medium cus40">Your Answer</p>
+                    <audio controls>
+                        <source src="" type="audio/ogg" job="submition2">
+                    </audio> 
+                </div>
+
+                <hr class="is-large is-light">
+
+                <p class="label has-text-weight-medium cus30 is-size-5">speaking Part 3</p>
+                <div>
+                    <p class="label has-text-weight-medium cus40">Question 1</p>
+                    <p class="is-size-5-5 writings" job="question31"></p>
+                        
+                    <p class="label has-text-weight-medium cus40">Your Question 1 Answer</p>
+                    <audio controls>
+                        <source src="" type="audio/ogg" job="submition31">
+                    </audio> 
+                    <hr class="is-medium is-light">
+                </div>
+                <div>
+                    <p class="label has-text-weight-medium cus40">Question 2</p>
+                    <p class="is-size-5-5 writings" job="question32"></p>
+
+                    <p class="label has-text-weight-medium cus40">Your Question 2 Answer</p>
+                    <audio controls>
+                        <source src="" type="audio/ogg" job="submition32">
+                    </audio> 
+                    <hr class="is-medium is-light">
+                </div>
+                <div>
+                    <p class="label has-text-weight-medium cus40">Question 3</p>
+                    <p class="is-size-5-5 writings" job="question33"></p>
+                    
+                    <p class="label has-text-weight-medium cus40">Your Question 3 Answer</p>
+                    <audio controls>
+                        <source src="" type="audio/ogg" job="submition33">
+                    </audio> 
+                </div>
+
+                <hr class="is-large">
+
+                <p class="label has-text-weight-medium cus40">Feedback and correction</p>
+                <p class="is-size-5-5 writings" job="feedback"></p>
+                    <hr class="is-small is-light">
+                <p class="label has-text-weight-medium cus40">Teacher Notes</p>
+                <p class="is-size-5-5 writings" job="teacherNotes"></p>
+            </div>
+
+        </div>
+    </div>  
+
+    <%- include('../partials/phoneNavT.ejs') %>
+
+</body>
+</html>
+<script src='/models/main.js'></script>

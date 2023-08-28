@@ -71,9 +71,6 @@
     <div class="popup-overlay dataPop">
         <div class="popup-container" id="popHtml">
             <div class="buttons">
-                <button class="button is-danger is-small"><i class="fa-regular fa-trash-can"></i></button>
-                <button class="button is-warning is-small"><i class="fa-regular fa-pen-to-square"></i></button>
-                <button class="button is-purpleGrade is-small" id="exportSheet" fileName="roadmap"><i class="fa-solid fa-download"></i></button>
                 <i class="fas fa-times" onclick="hideReportDataPopup()"></i>
             </div>
             
@@ -136,13 +133,39 @@ Remember to allocate time each day for focused practice and review. Stay consist
             <div class="contentBoxer">
                 <p class="is-size-4 has-text-weight-semibold has-text-centered has-text-purple">Roadmap Generator</p>
                 <div class="block active" interfaceId="1">
-                    <p class="is-size-5 has-text-weight-medium">Choose when you'll take your exam:</p>
-                    <div class="control has-icons-left">
-                        <input type="date" class="input" id="rmDateSelect">
-                        <span class="icon is-small is-left">
-                            <i class="fa-solid fa-calendar-day"></i>
-                        </span>
+                    <div class="field">
+                        <label class="label has-text-weight-medium cus80">Choose when you'll take your exam / preiod of studying:</label>
+                        <div class="control has-icons-left">
+                            <input type="date" class="input" id="rmDateSelect" required>
+                            <span class="icon is-small is-left">
+                                <i class="fa-solid fa-calendar-day"></i>
+                            </span>
+                        </div>
                     </div>
+
+                    <div class="field">
+                        <label class="label has-text-weight-medium cus80">What you want to improve:</label>
+                        <div class="control">
+                            <div class="select is-fullwidth">
+                                <select id="improve" required>
+                                    <option value="Speaking">Speaking</option>
+                                    <option value="Writing">Writing</option>
+                                    <option value="Listening">Listening</option>
+                                    <option value="Reading">Reading</option>
+                                    <option value="Speaking & Writing">Speaking & Writing</option>
+                                    <option value="reading, speaking, writing & listening">All</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label class="label has-text-weight-medium cus80">Average of studying hours per day: <span class="is-size-7 cus60">number of hours you will put in studying this roadmap per day</span></label>
+                        <div class="control">
+                            <input type="number" step="0.5" class="input" placeholder="number of studying hours" id="studyhours" required>
+                        </div>
+                    </div>
+
                     <br>
                     <div class="has-text-centered">
                         <button class="button is-purpleGradedeg" hideInterfBtn="1" targetInterf="2" id="generateRMbtn"><i class="fa-solid fa-terminal" style="font-size:12px; padding-right:5px"></i> Generate Roadmap</button>

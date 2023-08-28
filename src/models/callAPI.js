@@ -4,28 +4,15 @@ const currentDateFormated = `${date.getFullYear()}-${String(date.getMonth() + 1)
 
 // Function to call ChatGPT API
 const getChatGPT = async function(fun, fullMsg){
-    async function fetchAPI(){
-        const response = await fetch("https://api.openai.com/v1/chat/completions",{
-            method: "POST",
-            headers: {
-                'Authorization': `Bearer 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`,
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                model: "gpt-3.5-turbo",
-                messages: [{role: "system", content: `${fullMsg}`}],
-            }),
-        });
+    const response = await postEndPoint("/callChatGPT", JSON.stringify({command: fullMsg}));
 
-        if(!response.ok){ return false}
-        return await response.json();
+    if(!response.ok){ return getChatGPT(fun, fullMsg)}
+
+    else{
+        const data = await response.json();
+        fun(data);
+        return data;
     }
-    fetchAPI()
-    .then((response)=>{
-        if(response != false){
-            fun(response)
-        }
-    })
 }
 
 
@@ -83,7 +70,7 @@ const stop = (parent)=>{
 // Gunction to get random topic from our API
 const getRandomTopic = function(fun, jsonContext){
     async function caller(){
-        const data = await fetch(`/assets/api/${jsonContext}.json`);
+        const data = await fetch(`/${jsonContext}.json`);
         if(!data.ok){ return false}
         return await data.json();
     }
@@ -177,7 +164,8 @@ class writingClass{
         "userWriteing": document.querySelector('#userWriteing'), // **
         "aiWriting": document.querySelector('#aiWriting'), // **
         "wordsnum": document.querySelector('#wordsnum'),
-        "imageToCraft": document.querySelector('#imageToCraft')
+        "imageToCraft": document.querySelector('#imageToCraft'),
+        "questionText": ""
     }
     static #controles = {
         "goTopic": document.querySelector('#goTopic'),
@@ -204,6 +192,7 @@ class writingClass{
         span.textContent = "Write About: ";
         title.prepend(span);
         writingClass.#interfaces.popuper.prepend(title);
+        writingClass.#components.questionText = topic
     }
     static #hideOptions = function(){
         writingClass.#controles.options.forEach((ele)=>{
@@ -241,6 +230,48 @@ class writingClass{
         writingClass.#components.aiWriting.appendChild(paragraph);
     }
 
+    static #saveToDB = async function(response){ // ##
+        let semail = window.localStorage.getItem('userLogin');
+        semail = await JSON.parse(semail).email;
+
+        let type = document.querySelector('[quiz]').getAttribute("quiz");
+        let questionText = writingClass.#components.questionText;
+        let answer = writingClass.#components.userWriteing.textContent;
+        let feedback = writingClass.#components.aiWriting.textContent;
+
+        const scoreRegex = /(Band:|Score:|Band|Score|Band number:|Score number:|Band number|Score number)\s?(\d\.?\-?\d?)/i;
+        let scoreMatch = feedback.match(scoreRegex);
+        let score = "Good"
+        if(Array.isArray(scoreMatch)){
+            score = scoreMatch.reduce((prev, curr)=>{
+                if(prev.length > curr.length){
+                    return prev
+                }
+                return curr
+            }, "")
+        }
+
+        // writingClass.#components.aiWriting
+        const resultsAndData = {
+            type,
+            email: semail,
+            question: questionText,
+            answer,
+            aifeedback: feedback,
+            score
+        }
+        
+        let newWritingReport = await fetch('/student/reports/new-writing-report', {
+            method: 'POST',
+            mode: 'cors',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(resultsAndData)
+        });
+
+    }
+
     constructor(command, json) {
         const parent = this.constructor;
         this.command = command;
@@ -257,7 +288,7 @@ class writingClass{
                 getUnsplashImg(this.composers.getImgPush)
             },
 
-            pushShow: composer(parent.#aiWritePush), 
+            pushShow: composer(parent.#aiWritePush, parent.#saveToDB), 
             sumbitWriting: composer(
                 parent.#getUsrWrite,
                 parent.#usrWritePush, 
@@ -279,113 +310,7 @@ class writingClass{
             parent.#inputs.getWriting.addEventListener('keyup', countWords);
             parent.#controles.submitWrite.addEventListener('click', ()=>{
                 if(checkMinLimit(parent.#inputs.getWriting)){
-                    this.composers.sumbitWriting()
-                }
-            });
-
-        }
-    }
-}
-
-class storyWritingClass{
-    static #interfaces = {
-        "answerpopup": document.querySelector('#answerpopup'),
-        "boxShadowbg": document.querySelector('.boxShadowbg'),
-        "chat": document.querySelector('#chat')
-    }
-    static #components = {
-        "wordsnum": document.querySelector('#wordsnum')
-    }
-    static #controles = {
-        "goTopic": document.querySelector('#goTopic'),
-        "gnrateTopic": document.querySelector('#gnrateTopic'),
-        "submitWrite": document.querySelector('#submitWrite'),
-    }
-    static #inputs = {
-        "getWriting": document.querySelector('#getWriting') 
-    }
-
-    static #getTopic = function(topic){
-        let title = document.createElement("p");
-        title.classList.add('is-size-6');
-        title.textContent = topic;
-        let span = document.createElement("span");
-        span.classList.add('is-size-6', "has-text-purple", "has-text-weight-medium");
-        span.textContent = "Write About: ";
-        title.prepend(span);
-        storyWritingClass.#interfaces.chat.prepend(title);
-    }
-    static #generateCommand = function(command, writing){
-        return `${command[0]} '${writing}'. ${command[1]}`
-    }
-    static #hidpopup = function(){
-        storyWritingClass.#interfaces.boxShadowbg.classList.add('trans');
-        storyWritingClass.#interfaces.answerpopup.classList.add('trans');
-        setTimeout(() => {
-            storyWritingClass.#interfaces.boxShadowbg.remove();
-            storyWritingClass.#interfaces.answerpopup.remove();
-        }, 1000);
-    }
-    static #getUsrWrite = function(){
-        let value =  storyWritingClass.#inputs.getWriting.value;
-        return value
-    } 
-    static #getAiStoryMsg = function(resp){
-        return resp.choices[0].message.content;
-    }
-    static #usrWritePush = function(writing){
-        let msgItem = document.createElement('div'); 
-        storyWritingClass.#interfaces.chat.appendChild(msgItem);
-        msgItem.classList.add('msgboxContR');
-    
-        let msgBoxChild = document.createElement('div');
-        msgBoxChild.textContent = writing;
-        msgBoxChild.classList.add('usr',"msg");
-        msgItem.appendChild(msgBoxChild);
-        return writing
-    }
-    static #aiWritePush = function(response){ // ##
-        let msgItem = document.createElement('div'); 
-        storyWritingClass.#interfaces.chat.appendChild(msgItem);
-        msgItem.classList.add('msgboxCont');
-    
-        let msgBoxChild = document.createElement('div');
-        msgBoxChild.textContent = response;
-        console.log(response)
-        msgBoxChild.classList.add('ai',"msg");
-        msgItem.appendChild(msgBoxChild);
-    }
-
-    constructor(command, json) {
-        const parent = this.constructor;
-        this.command = command;
-        this.json = json;
-        this.composers = {
-            haveTopic: composer(parent.#hidpopup),
-            afterGettingRandomTopic: composer(parent.#getTopic, parent.#hidpopup), // ## 
-            newTopicAdd: ()=>{
-                getRandomTopic(this.composers.afterGettingRandomTopic, this.json)
-            },
-            
-            pushShow: composer(parent.#getAiStoryMsg, parent.#aiWritePush), 
-            sumbit: composer(
-                parent.#getUsrWrite,
-                parent.#usrWritePush, 
-                (response)=>{return parent.#generateCommand(this.command, response)}, 
-                (fullCommand)=>{getChatGPT(this.composers.pushShow, fullCommand)}, 
-            )
-
-        };
-        this.init = function(){
-            this.addListeners()
-        }
-        this.addListeners = function(){
-            parent.#controles.goTopic.addEventListener('click', this.composers.haveTopic);
-            parent.#controles.gnrateTopic.addEventListener('click', this.composers.newTopicAdd);
-            parent.#inputs.getWriting.addEventListener('keyup', countWords);
-            parent.#controles.submitWrite.addEventListener('click', ()=>{
-                if(checkMinLimit(parent.#inputs.getWriting)){
-                    this.composers.sumbit()
+                    this.composers.sumbitWriting();
                 }
             });
 
@@ -394,15 +319,8 @@ class storyWritingClass{
 }
 
 
-let IeltsWriting1 = new writingClass(IeltsWriting1Command, "ieltsSpeaking1");
-let IeltsWriting2 = new writingClass(IeltsWriting2Command, "ieltsSpeaking1");
-let generalWriting = new writingClass(GeneralWriteCommand, "ieltsSpeaking1");
-let easyIELTSIntro = new writingClass(EasyIELTSIntroCommand, "ieltsSpeaking1");
-let easyIELTSBody = new writingClass(EasyIELTSBodyCommand, "ieltsSpeaking1");
-let easyIELTSConc = new writingClass(EasyIELTSconcCommand, "ieltsSpeaking1");
-
-let craftImage = new writingClass(ImageWritingCommand, "ieltsSpeaking1");
-let writeStory = new storyWritingClass(StoryWritingCommand, "ieltsSpeaking1");
+let IeltsWriting1 = new writingClass(IeltsWriting1Command, "writingpart1");
+let IeltsWriting2 = new writingClass(IeltsWriting2Command, "writingpart1");
 
 
 // Check JUST the grammar and vocabulary mistakes of this statement of a story. Then send to me a new statement as a completion to the story (at maximum use 20 words). This is the story I have mention: `She was walking in the road, till suddenly she hit a car`
@@ -499,7 +417,7 @@ const APPIELTSSpeak1 = {
 
     generateTopic: function(fun){
         async function caller(){
-            const data = await fetch("/assets/api/ieltsSpeaking1.json");
+            const data = await fetch("/ieltsApi/ieltsSpeaking1.json");
             if(!data.ok){ return false}
             return await data.json();
         }

@@ -92,6 +92,7 @@
     --purple70: #6c5c7a; 
     --purple75: #2a2b2f;
     --purple80: #42354c;
+    --purple80: #30264e; 
     --purple90: #291f34; 
 
 }
@@ -103,7 +104,45 @@
 .cus50{color: var(--purple50)}
 .cus60{color: var(--purple60)}
 .cus65{color: var(--purple65)}
-.cus70{color: var(--purple)}
+.cus70{color: var(--purple70)}
+.cus80{color: var(--purple80)}
+.cus90{color: var(--purple90)}
+
+
+textarea::placeholder {
+    color: var(--darkPurpel) !important;
+    font-weight: 500;
+}
+
+
+.button.cus60.is-fullwidth.is-small.meeting {
+    padding: 17px;
+    border-radius: 6px;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 8px;
+    font-size: 15.5px;
+    border: 2px solid var(--purple60);
+    letter-spacing: 0.8px;
+    transition: 0.2s;
+}
+.button.cus60.is-fullwidth.is-small.meeting:hover {
+    color: var(--purple60);
+    background-color: var(--whiteBg);
+    border: 2px solid var(--purple60);
+}
+.meetings .reportBox{
+    border: 2px solid var(--purple60);
+}
+.is-size-55, .is-55 {
+    font-size: 1.2rem !important;
+}
+.is-size-65 {
+    font-size: 0.92rem !important;
+}
+.reportSection.show.meetings {
+    display: flex !important;
+  }
 
 .button.cus10{
     background-color: var(--purple10);
@@ -406,6 +445,11 @@ nav.mobileHeader .navbar-item.active i {
     background-color: var(--purple80);
     border-radius: 5px;
     cursor: pointer;
+    display: block;
+    color: inherit;
+}
+.reportBox *{
+    color: inherit;
 }
 .leasonBox > div{
     margin-bottom: 20px;
@@ -633,6 +677,11 @@ nav.mobileHeader .navbar-item.active i {
 }
 .aiTxtBox{
     background-color: var(--purple01);
+    white-space: pre-wrap;
+}
+.vocabs{
+    background-color: var(--graybg) !important;
+    white-space: pre-wrap;
 }
 .chat {
     padding: 15px;
@@ -1359,9 +1408,9 @@ nav.mobileHeader .navbar-item.active i {
     display: block;
 }
 
-.theContent section button {
+.theContent section button.inp {
     font-size: 14px !important; 
-    margin-top: 10px;
+    height: 100%;
 }
 .theContent section button i{
     padding-left: 5px
@@ -1946,7 +1995,7 @@ table{
 
 [interfaceId]{
     opacity: 0;
-    transition: 0.5s opacity;
+    transition: 0.3s opacity;
     margin-top: 10px;
     pointer-events: none;
 }
@@ -1957,8 +2006,36 @@ table{
 }
 
 
-
-
+.selectTask {
+    background-color: var(--whiteBg);
+    padding: 10px 14px;
+    border-radius: 8px;
+    border: 2px solid var(--purple60);
+    transition: 0.3s;
+    cursor: pointer;
+    position: relative;
+}
+.selectTask.isai::after {
+    position: absolute;
+    content: 'AI';
+    top: -10px;
+    right: -10px;
+    height: 26px;
+    width: 26px;
+    background-color: var(--purple20);
+    border-radius: 50%;
+    text-align: center;
+    color: var(--whiteBg);
+}
+.selectTask:hover, input[type="radio"]:checked + label .selectTask{
+    background-color: var(--purple20);
+}
+.selectTask .cus60{
+    transition: 0.3s;
+}
+.selectTask:hover .cus60, input[type="radio"]:checked + label .selectTask .cus60{
+    color: var(--whiteBg);
+}
 
 
 
@@ -2097,3 +2174,65 @@ table{
     }
 }
 
+
+
+
+
+
+
+
+.table.stable thead {
+    background-color: var(--darkPurpel);
+}
+table.dataTable > tbody > tr .dataTables_empty {
+    display: none;
+  }
+
+.marginBottom10{
+    margin-bottom: 10px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+.block.contenter {
+    padding: 20px 25px;
+}
+@media (max-width: 500px){
+    .block.contenter {
+        padding: 20px 12px;
+    }
+}
+
+
+
+
+
+hr.is-light {
+    background-color: var(--purple60);
+    opacity: 0.45;
+}
+hr.is-small {
+    height: 1px;
+}
+hr.is-meduim {
+    height: 2px;
+}
+hr.is-large {
+    height: 3px;
+}
+
+
+
+.studentInfo {
+    padding: 5px 0 0 15px;
+    margin-bottom: -8px;
+}

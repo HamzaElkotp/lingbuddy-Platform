@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<%- include('../../partials/head.ejs') %>
+<body>
+    
+    <div style="display: none" id="pageTitle">dashboard</div>
+
+    <nav class="backnav is-flex is-justify-content-space-between is-align-items-center">
+        <p class="is-6 has-text-weight-mediume cus50">Recomendations: <span class="is-size-55 has-text-grey-lighter"><%= responseData.taskname %></span></p>
+        <a href="/student" class="backto">Back <i class="fa-solid fa-caret-right"></i></a>
+    </nav>
+    
+    <div class="contentBox nopadd">
+        <div class="block contenter train" quiz="w1">
+            <div class="aitxt txtContentBox">
+                <p class="subtitle is-5 has-text-weight-mediume">Task Content</p>
+                <div class="txtBox aiTxtBox vocabs"><p id="taskContent"><%- responseData.content.trim() %></p></div>
+            </div>
+
+            <% if (responseData.answered === "false") { %>
+                <div>
+                  <label class="is-size-4">
+                    <input type="checkbox" id="taskChecked" fethcplace="/student/mytasks/re/" saveID="<%= responseData._id %>" style="height: 20px; width: 20px;" />
+                    Mark as answered
+                  </label>
+                </div>
+            <% } %>
+    
+            
+        </div>
+    </div>
+    
+    <%- include('../../partials/phoneNav.ejs') %>
+
+</body>
+</html>
+<script src='/models/main.js'></script>
