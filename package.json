@@ -1,4 +1,11 @@
 {
+  "name": "LingBuddy Platform",
+  "version": "0.1.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
   "type": "module",
   "dependencies": {
     "body-parser": "^1.20.2",

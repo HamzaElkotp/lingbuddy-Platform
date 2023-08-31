@@ -64,6 +64,10 @@ app.get("/", (req,res,)=>{
     res.render(`index`);
 })
 
+app.get("/test", (req,res,)=>{ 
+    res.json({run: true});
+})
+
 app.post('/checkUser', async (req, res) => {
     let userLogin = await req.body;
     let result = await checkUserData(userLogin);
