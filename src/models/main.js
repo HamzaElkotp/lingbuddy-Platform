@@ -960,6 +960,63 @@ const getWriteMocksReportsReady = function(){
 
 
 
+function pushOverviewToTables(ele, tid){
+    let missedTable = document.getElementById(tid).querySelector("tbody");
+
+    const tr = document.createElement("tr");
+
+    const td1 = document.createElement("td");
+    td1.textContent = ele.name || ele.worngWord;
+
+
+    const td2 = document.createElement("td");
+    td2.textContent = ele.number || ele.missedWord;
+
+    tr.appendChild(td1);
+    tr.appendChild(td2);
+
+    missedTable.appendChild(tr);
+}
+
+
+const getStudentStudyOverview = async function(){
+    let userEmail = null;
+    if(document.getElementById("userMail")?.textContent){
+        userEmail = document.getElementById("userMail").textContent
+    } else{
+        let studentEmail = await JSON.parse(window.localStorage.getItem("userLogin"));
+        userEmail = studentEmail.email;
+    }
+    const response = await fetch(`/get-new-overflow-study-data/${userEmail}`, {method: "GET"});
+    if (response.ok) {
+        const data = await response.json();
+        if(data.success == false ){
+            let info = document.getElementById('info');
+            info.textContent = "No reports were found!"
+            return 
+        }
+
+        let time = data.updatedAt;
+        let date = new Date(time);
+        let day = date.getDate();
+        let month = date.getMonth() + 1;
+        date = `${day.toString().padStart(2, '0')}/${month.toString().padStart(2, '0')}`
+
+        let lastUpdate = document.getElementById("lastUpdate");
+        lastUpdate.textContent = date
+
+        data.grammer.forEach((ele)=>{
+            pushOverviewToTables(ele, "grammarTable");
+        })
+        data.misspelling.forEach((ele)=>{
+            pushOverviewToTables(ele, "missedTable");
+        })
+    }
+} 
+
+
+
+
 
 function pushStudentasOption(stuobj){
     const selectStudent = document.getElementById('selectStudent');
@@ -1135,6 +1192,7 @@ else if(window.location.pathname.includes('student')){
     getStudentMeetings();
     getStudentVItasks();
     getStudentResourcesTasks();
+    getStudentStudyOverview();
 }
 else if(window.location.pathname.includes('teacher/meetings')){
     getTeacherMeetings()
@@ -1142,6 +1200,7 @@ else if(window.location.pathname.includes('teacher/meetings')){
 else if(window.location.pathname.includes('teacher/control')){
     getWriteReportsReady();
     getWriteMocksReportsReady();
+    getStudentStudyOverview();
 }
 else if(window.location.pathname.includes('teacher/tasks/newtask')){
     callTeacherStudentsEmail()

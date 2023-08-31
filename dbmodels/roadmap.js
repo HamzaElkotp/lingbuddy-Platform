@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 const Schema = mongoose.Schema;
 
@@ -33,4 +33,5 @@ const roadmapSchema = new Schema({
 }, {timestamps: true})
 
 const Roadmaps = mongoose.model('roadmaps', roadmapSchema)
-module.exports = Roadmaps;
+// module.exports = Roadmaps;
+export default Roadmaps

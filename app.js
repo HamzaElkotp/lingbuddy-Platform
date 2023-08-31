@@ -1,18 +1,34 @@
-const express = require('express');
-const dotenv = require('dotenv').config();
-const mongoose = require('mongoose');
-const bodyParser = require('body-parser');
-// const fetch = require('node-fetch');
+// const express = require('express');
+// const dotenv = require('dotenv').config();
+// const mongoose = require('mongoose');
+// const bodyParser = require('body-parser');
 
-// DB models
-const User = require('./dbmodels/usermodel');
-const Writings = require('./dbmodels/writingmodel');
-const Speakings = require('./dbmodels/speakingmodel');
-const WritingMock = require('./dbmodels/writingMockmodel');
-const SpeakingMock = require('./dbmodels/speakingMockmodel');
-const Meetings = require('./dbmodels/meetingsmodel');
-const Vitasks = require('./dbmodels/vitaskmodel');
-const Resourcetasks = require('./dbmodels/resourcetasksmodel');
+import express from 'express';
+import { config as dotenvConfig } from 'dotenv';
+import mongoose from 'mongoose';
+import bodyParser from 'body-parser';
+
+dotenvConfig();
+
+// // DB models
+import { User, Writings, Speakings, WritingMock, SpeakingMock, Meetings, Vitasks, Resourcetasks, Overview } from './dbmodels/index.js';
+
+// const User = require('./dbmodels/usermodel');
+// const Writings = require('./dbmodels/writingmodel');
+// const Speakings = require('./dbmodels/speakingmodel');
+// const WritingMock = require('./dbmodels/writingMockmodel');
+// const SpeakingMock = require('./dbmodels/speakingMockmodel');
+// const Meetings = require('./dbmodels/meetingsmodel');
+// const Vitasks = require('./dbmodels/vitaskmodel');
+// const Resourcetasks = require('./dbmodels/resourcetasksmodel');
+// const Overview = require('./dbmodels/overviewmodel');
+
+
+// langchain custom models
+import get_MissGrammared_list from './langchainmodels/grammarStore.js'
+import find_MissGrammared_list from './langchainmodels/grammarParsers.js'
+import find_MissWords_list from './langchainmodels/misswordsParsers.js'
+
 
 const app = express();
 
@@ -156,10 +172,73 @@ app.get("/student/roadmap", (req,res)=>{
 
 
 
+// app.get("/most-recent-report/:email", async(req,res)=>{ 
+
+// })
 
 
+async function getLastWriteReport(email){
+    const mostRecentDocument = await Writings.findOne({ email })
+    .sort({ createdAt: -1 })
+    .exec();
 
+    return mostRecentDocument;
+}
 
+app.get("/get-new-overflow-study-data/:email", async(req,res)=>{ 
+    try{
+        const email = req.params.email;
+        const overview = await Overview.findOne({ email });
+        let report = null;
+        async function getNewUpdate(email){
+            report = await getLastWriteReport(email);
+            if(report == null){
+                return "Error"
+            }
+    
+            let grammarsList = await find_MissGrammared_list(report.answer); 
+            let missSpilledList = await find_MissWords_list(report.answer); 
+            if(Array.isArray(grammarsList) && Array.isArray(missSpilledList)){
+                let updateObj = { grammer: grammarsList, misspelling: missSpilledList};
+                let filterObj = { email };
+                console.log(updateObj)
+        
+                let doc = await Overview.findOneAndUpdate(filterObj, updateObj);
+            } else {
+                return "Error"
+            }
+        }
+    
+        // Check If passed 7 days
+        let today = new Date();
+        let lastDate = new Date(overview.updatedAt);
+        let numberOfdays = Math.floor((today - lastDate) / (1000 * 60 * 60 * 24))
+        if(numberOfdays > 7){
+            let updateOverview = await getNewUpdate(email);
+            if(updateOverview == "Error"){
+                res.json({success: false})
+            } else{
+                const overview = await Overview.findOne({ email });
+                res.json(overview)
+            }
+        } else {
+            if(overview.grammer.length == 0 && overview.misspelling.length == 0){
+                let updateOverview = await getNewUpdate(email);
+                if(updateOverview == "Error"){
+                    res.json({success: false})
+                } else{
+                    const overview = await Overview.findOne({ email });
+                    res.json(overview)
+                }
+            } else{
+                res.json(overview)
+            }
+        }
+    } catch(e){
+        
+    }
+
+})
 
 
 
@@ -347,7 +426,16 @@ app.post("/api/register", async(req,res)=>{
         })
         newUser.save()
         .then((result)=>{
-            res.json({ exists: false })
+            if(userRegister.accountType == "student"){
+                const initOverview = new Overview({
+                    email: userRegister.email
+                })
+                initOverview.save();
+                res.json({ exists: false })
+            }
+            else{
+                res.json({ exists: false })
+            }
         })
     } else {
         res.json({ exists: true })
@@ -363,7 +451,7 @@ app.post("/callChatGPT", async(req,res)=>{
     const response = await fetch("https://api.openai.com/v1/chat/completions", {
         method: 'POST',
         headers: {
-            'Authorization': `Bearer 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`,
+            'Authorization': `Bearer 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`,
             'Content-Type': 'application/json',
         },
         body: JSON.stringify({

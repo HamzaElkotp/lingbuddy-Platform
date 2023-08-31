@@ -3,24 +3,71 @@
 <%- include('../partials/head.ejs') %>
 <body>
     
-    <div style="display: none" id="pageTitle">dashboard</div>
+    <div style="display: none" id="pageTitle">students</div>
 
     <%- include('../partials/desktopNavT.ejs') %>
 
     <div class="contentBox nopadd">
         <div class="studentInfo">
-            <p class="cus60 is-size-65">Student: <span class="cus70"><%= `${jsonResponse.userData.firstName} ${jsonResponse.userData.lastName}` %></span> | <span class="cus60"><%= `${jsonResponse.userData.email}` %></span></p>
+            <p class="cus60 is-size-65">Student: <span class="cus70"><%= `${jsonResponse.userData.firstName} ${jsonResponse.userData.lastName}` %></span> | <span class="cus60" id="userMail"><%= `${jsonResponse.userData.email}` %></span></p>
         </div>
         
         <nav class="navigation">
-            <span class="active" dashpage="reports">Reports</span>
+            <span class="active" dashpage="overview">Study Overview</span>
+            <span dashpage="reports">Reports</span>
             <span dashpage="roadmaps">Roadmaps</span>
             <span dashpage="tasks">Tasks</span>
         </nav>
 
         <div class="theContent">
+            <section class="active" dashSect="overview">
+                <h2 class="label is-size-5 has-text-weight-medium">Studying OverView</h2>
+                <p class="cus80">These Data get updated every 7 days, based on your reports data. <span class="cus60">last update: <span id="lastUpdate">-</span></span></p>
+                <br>
+                <div class="block">
+                    <label class="label is-3 has-text-weight-medium"><span class="cus60">Grammars</span> that Student needs To study more</label>
+                    <div class="tableBox">
+                        <table id="grammarTable">
+                            <thead>
+                                <tr>
+                                    <td>Grammar</td>
+                                    <td class="td-small">Flag </td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                
+                            </tbody>
+                        </table> 
+                    </div>
+                    <button class="button is-purpleGrade is-small" exporter="exportDataTable" fileName="Grammar mistakes">Export <i class="fa-regular fa-file-pdf"></i></button>
+                    <button class="button is-danger is-small" id="resetTable2">Reset <i class="fa-solid fa-rotate-right"></i></button>
+                </div>
 
-            <section dashSect="reports" class="active">
+                <hr>
+
+                <div class="block">
+                    <label class="label is-3 has-text-weight-medium"><span class="cus60">Misspelled</span> Words that student needs to study again</label>
+                    <div class="tableBox">
+                        <table id="missedTable">
+                            <thead>
+                                <tr>
+                                    <td class="is-half">Misspelled Words (what you had written)</td>
+                                    <td class="is-half">Correction</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                
+                            </tbody>
+                        </table> 
+                    </div>
+                    <button class="button is-purpleGrade is-small" exporter="exportDataTable" fileName="Grammar mistakes">Export <i class="fa-regular fa-file-pdf"></i></button>
+                    <button class="button is-danger is-small" id="resetTable2">Reset <i class="fa-solid fa-rotate-right"></i></button>
+                </div>
+
+                <p id="info" class="cus60 has-text-centered is-size-5"></p>
+            </section>
+
+            <section dashSect="reports">
                 <div class="lessonsPage">
                     <p class="label is-medium has-text-weight-medium has-text-grey">IELTS Sections Training</p>
                     
@@ -67,7 +114,7 @@
                                                     <p class="is-size-7 longTxt aif"><%= report.aifeedback %></p>
                                                 </div>
                                                 <div class="is-size-6">Your Feedback: 
-                                                    <p class="is-size-7 longTxt tef"><%= report.teacherfeedback.length > 0 ? report.teacherfeedback : "-" %></p>
+                                                    <p class="is-size-7 longTxt tef"><%= report.teacherfeedback?.length > 0 ? report.teacherfeedback : "-" %></p>
                                                 </div>
                                             </div>
                                         </div>

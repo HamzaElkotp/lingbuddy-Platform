@@ -9,10 +9,10 @@
 
     <div class="contentBox nopadd">
         <nav class="navigation">
-            <span class="active" dashpage="overview">Overview</span>
+            <span class="active" dashpage="overview">Account OverView</span>
             <span dashpage="meetings" id="meetsBar">Meetings</span>
             <span dashpage="tasks">Tasks</span>
-            <span dashpage="grammar">Grammar Flags</span>
+            <span dashpage="Summary">Studying Reports Summary</span>
         </nav>
 
         <div class="theContent">
@@ -328,34 +328,51 @@
                 <button class="button is-danger is-small" id="resetTable1">Reset <i class="fa-solid fa-rotate-right"></i></button>
             </section>
 
-            <section dashSect="grammar">
-                <h2 class="label is-3 has-text-weight-medium">Grammar</h2>
-                <div class="tableBox">
-                    <table>
-                        <thead>
-                            <tr>
-                                <td>Grammar</td>
-                                <td class="td-small">Flag </td>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>Present Perfect</td>
-                                <td class="has-text-danger"><i class="fa-solid fa-flag"></i> <span>10</span></td>
-                            </tr>
-                            <tr>
-                                <td>Present Simple</td>
-                                <td class="has-text-warning"><i class="fa-solid fa-flag"></i> <span>5</span></td>
-                            </tr>
-                            <tr>
-                                <td>Past Simple</td>
-                                <td class="has-text-primary"><i class="fa-solid fa-flag"></i> <span>2</span></td>
-                            </tr>
-                        </tbody>
-                    </table> 
+            <section dashSect="Summary">
+                <h2 class="label is-size-5 has-text-weight-medium">Studying OverView</h2>
+                <p class="cus80">These Data get updated every 7 days, based on your reports data. <span class="cus60">last update: <span id="lastUpdate">-</span></span></p>
+                <br>
+                <div class="block">
+                    <label class="label is-3 has-text-weight-medium"><span class="cus60">Grammar</span> To study more</label>
+                    <div class="tableBox">
+                        <table id="grammarTable">
+                            <thead>
+                                <tr>
+                                    <td>Grammar</td>
+                                    <td class="td-small">Flag </td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                
+                            </tbody>
+                        </table> 
+                    </div>
+                    <button class="button is-purpleGrade is-small" exporter="exportDataTable" fileName="Grammar mistakes">Export <i class="fa-regular fa-file-pdf"></i></button>
+                    <button class="button is-danger is-small" id="resetTable2">Reset <i class="fa-solid fa-rotate-right"></i></button>
                 </div>
-                <button class="button is-purpleGrade is-small" exporter="exportDataTable" fileName="Grammar mistakes">Export <i class="fa-regular fa-file-pdf"></i></button>
-                <button class="button is-danger is-small" id="resetTable2">Reset <i class="fa-solid fa-rotate-right"></i></button>
+
+                <hr>
+
+                <div class="block">
+                    <label class="label is-3 has-text-weight-medium"><span class="cus60">Misspelled</span> Words</label>
+                    <div class="tableBox">
+                        <table id="missedTable">
+                            <thead>
+                                <tr>
+                                    <td class="is-half">Misspelled Words (what you had written)</td>
+                                    <td class="is-half">Correction</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                
+                            </tbody>
+                        </table> 
+                    </div>
+                    <button class="button is-purpleGrade is-small" exporter="exportDataTable" fileName="Grammar mistakes">Export <i class="fa-regular fa-file-pdf"></i></button>
+                    <button class="button is-danger is-small" id="resetTable2">Reset <i class="fa-solid fa-rotate-right"></i></button>
+                </div>
+
+                <p id="info" class="cus60 has-text-centered is-size-5"></p>
             </section>
 
         </div>
