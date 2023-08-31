@@ -37,7 +37,7 @@ mongoose.connect(dbURI, {useNewUrlParser: true, useUnifiedTopology: true});
 
 
 app.set('view engine', 'ejs');
-app.listen(process.env.PORT || 5500);
+app.listen(8080 || process.env.PORT);
 
 
 app.use(express.static('assets'));
@@ -448,14 +448,14 @@ app.post("/api/register", async(req,res)=>{
 
 
 
-
+const apikey = process.env.OPENAI_API_KEY
 
 app.post("/callChatGPT", async(req,res)=>{ 
     const command = await req.body;
     const response = await fetch("https://api.openai.com/v1/chat/completions", {
         method: 'POST',
         headers: {
-            'Authorization': `Bearer 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`,
+            'Authorization': `Bearer ${apikey}`,
             'Content-Type': 'application/json',
         },
         body: JSON.stringify({
