@@ -467,3 +467,6 @@ app.post("/callChatGPT", async(req,res)=>{
     const responseData = await response.json();
     res.json(responseData)
 })
+
+
+export default app;
