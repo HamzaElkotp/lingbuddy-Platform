@@ -37,7 +37,7 @@ mongoose.connect(dbURI, {useNewUrlParser: true, useUnifiedTopology: true});
 
 
 app.set('view engine', 'ejs');
-app.listen(5500);
+app.listen(process.env.PORT || 5500);
 
 
 app.use(express.static('assets'));
