@@ -48,9 +48,9 @@ app.set('view engine', 'ejs');
 let port = process.env.PORT || 8080
 
 
-app.use(express.static('assets'));
-app.use(express.static('src'));
-app.use(express.static('ieltsApi'));
+app.use(express.static(__dirname +'/assets'));
+app.use(express.static(__dirname +'/src'));
+app.use(express.static(__dirname +'/ieltsApi'));
 app.use(bodyParser.json());
 
 
