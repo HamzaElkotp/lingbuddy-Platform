@@ -32,9 +32,9 @@ import { User, Writings, Speakings, WritingMock, SpeakingMock, Meetings, Vitasks
 
 
 // langchain custom models
-// import get_MissGrammared_list from '../langchainmodels/grammarStore.js'
-// import find_MissGrammared_list from '../langchainmodels/grammarParsers.js'
-// import find_MissWords_list from '../langchainmodels/misswordsParsers.js'
+// import get_MissGrammared_list from './langchainmodels/grammarStore.js'
+import find_MissGrammared_list from './langchainmodels/grammarParsers.js'
+import find_MissWords_list from './langchainmodels/misswordsParsers.js'
 
 
 const app = express();
