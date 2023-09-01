@@ -11,7 +11,7 @@ import bodyParser from 'body-parser';
 dotenvConfig();
 
 // // DB models
-import { User, Writings, Speakings, WritingMock, SpeakingMock, Meetings, Vitasks, Resourcetasks, Overview } from '../dbmodels/index.js';
+import { User, Writings, Speakings, WritingMock, SpeakingMock, Meetings, Vitasks, Resourcetasks, Overview } from './dbmodels/index.js';
 
 // const User = require('./dbmodels/usermodel');
 // const Writings = require('./dbmodels/writingmodel');
@@ -37,7 +37,7 @@ mongoose.connect(dbURI, {useNewUrlParser: true, useUnifiedTopology: true});
 
 
 app.set('view engine', 'ejs');
-app.listen(8080 || process.env.PORT);
+let port = process.env.PORT || 8080
 
 
 app.use(express.static('assets'));
@@ -468,4 +468,6 @@ app.post("/callChatGPT", async(req,res)=>{
     res.json(responseData)
 })
 
+
+app.listen(port);
 // export default app
