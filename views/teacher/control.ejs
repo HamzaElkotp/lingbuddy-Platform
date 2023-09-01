@@ -147,7 +147,7 @@
                                                     <p class="is-size-7 longTxt aif"><%= report.aifeedback %></p>
                                                 </div>
                                                 <div class="is-size-6">Your Feedback: 
-                                                    <p class="is-size-7 longTxt tef"><%= report.teacherfeedback.length > 0 ? report.teacherfeedback : "-" %></p>
+                                                    <p class="is-size-7 longTxt tef"><%= report.teacherfeedback?.length > 0 ? report.teacherfeedback : "-" %></p>
                                                 </div>
                                             </div>
                                         </div>
@@ -220,7 +220,7 @@
                                                 <p class="aif2"><%= report.aifeedbacks[1] %></span></p>
                                             </div>
                                             <div class="is-size-6">Your Feedback: 
-                                                <p class="is-size-7 longTxt tef"><%= report.teacherfeedback.length > 0 ? report.teacherfeedback : "-" %></p>
+                                                <p class="is-size-7 longTxt tef"><%= report.teacherfeedback?.length > 0 ? report.teacherfeedback : "-" %></p>
                                             </div>
                                         </div>
                                     </div>
