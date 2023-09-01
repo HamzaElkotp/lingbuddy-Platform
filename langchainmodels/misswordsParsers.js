@@ -44,9 +44,12 @@ async function find_MissWords_list(reportWritings) {
     let jsonStartIndex = response.indexOf('{');
     let parsed = response.substring(jsonStartIndex);
     parsed = await JSON.parse(parsed);
-    parsed = parsed["missedWorss"]
+    parsed = parsed["missedWorss"] || parsed["properties"]["missedWorss"]["description"]
 
-    console.log(parsed)
+    // console.log(response);
+    // console.log(jsonStartIndex);
+    // console.log(parsed);
+    // console.log("#################");
     return parsed
   } catch (e) {
     console.log("error")

@@ -448,7 +448,7 @@ nav.mobileHeader .navbar-item.active i {
     display: block;
     color: inherit;
 }
-.reportBox *{
+.reportBox *:not(.cus60){
     color: inherit;
 }
 .leasonBox > div{

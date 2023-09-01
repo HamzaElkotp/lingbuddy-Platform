@@ -44,9 +44,12 @@ async function find_MissGrammared_list(reportWritings) {
     let jsonStartIndex = response.indexOf('{');
     let parsed = response.substring(jsonStartIndex);
     parsed = await JSON.parse(parsed);
-    parsed = parsed["GrammarMistakes"]
+    parsed = parsed["GrammarMistakes"] || parsed["properties"]["GrammarMistakes"]["description"]
 
-    console.log(parsed)
+    // console.log(response);
+    // console.log(jsonStartIndex);
+    // console.log(parsed);
+    // console.log("#################");
     return parsed
   } catch (e) {
     console.log("error")

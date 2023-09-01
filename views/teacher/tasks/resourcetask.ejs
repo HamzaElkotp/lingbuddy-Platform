@@ -16,17 +16,6 @@
                 <p class="subtitle is-5 has-text-weight-mediume">Task Content</p>
                 <div class="txtBox aiTxtBox vocabs"><p id="taskContent"><%- responseData.content.trim() %></p></div>
             </div>
-
-            <% if (responseData.answered === "false") { %>
-                <div>
-                  <label class="is-size-4">
-                    <input type="checkbox" id="taskChecked" fethcplace="/student/mytasks/re/" saveID="<%= responseData._id %>" style="height: 20px; width: 20px;" />
-                    Mark as answered
-                  </label>
-                </div>
-            <% } %>
-    
-            
         </div>
     </div>
     

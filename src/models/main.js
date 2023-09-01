@@ -48,6 +48,13 @@ reportsNavLinks?.forEach((link)=>{
     link.href = `/student/reports/${x}`;
 })
 
+let taskssNavLinks = document.querySelectorAll("[href='/teacher/tasks']")
+taskssNavLinks?.forEach((link)=>{
+    let x = JSON.parse(window.localStorage.getItem('userLogin'));
+    x = x.email;
+    link.href = `/teacher/tasks/${x}`;
+})
+
 
 const pageTitle = document.querySelector('#pageTitle');
 (function () {
@@ -114,7 +121,7 @@ const specifyReportSection = function (getted) {
     searchInput.setAttribute("searchPlace", getted);
 
     let loadcardsBtn = parent.querySelector("[loadPlace]");
-    loadcardsBtn.setAttribute("loadPlace", getted);
+    loadcardsBtn?.setAttribute("loadPlace", getted);
     return getted
 }
 const showSectonReports = function (getted) {
@@ -249,17 +256,21 @@ reportData.forEach((ele) => {
 })
 function showReportDataPopup() {
     let popData = document.querySelector(".dataPop");
-    popData.style.display = "flex";
-    setTimeout(() => {
-        popData.classList.add('active');
-    }, 10);
+    if(popData){
+        popData.style.display = "flex";
+        setTimeout(() => {
+            popData.classList.add('active');
+        }, 10);
+    }
 }
 function hideReportDataPopup() {
     let popData = document.querySelector(".dataPop");
-    popData.classList.remove('active');
-    setTimeout(() => {
-        popData.style.display = "none";
-    }, 700);
+    if(popData){
+        popData.classList.remove('active');
+        setTimeout(() => {
+            popData.style.display = "none";
+        }, 700);
+    }
 }
 
 
@@ -830,7 +841,7 @@ newMeetingForm?.addEventListener('submit', async (event) => {
     const topic = newMeetingForm.querySelector('input[type="text"]').value;
     const meetDate = newMeetingForm.querySelector('input[type="date"]').value;
     const link = newMeetingForm.querySelector('input[type="url"]').value;
-    const student = newMeetingForm.querySelector('#students').value;
+    const student = newMeetingForm.querySelector('#selectStudent').value;
     const tEmail = teacherEmail.email;
 
     const meetData = {
@@ -1079,7 +1090,7 @@ hideButtons?.forEach((btn)=>{
 });
 
 
-// Vocabs & Idioms Task
+// Vocabularies Task
 const vocGenerateBtn = document.getElementById('vocGenerateBtn');
 vocGenerateBtn?.addEventListener('click', async ()=>{
     let currectWindow = document.querySelector('[taskis="vocabIdioms"]');
@@ -1195,12 +1206,21 @@ else if(window.location.pathname.includes('student')){
     getStudentStudyOverview();
 }
 else if(window.location.pathname.includes('teacher/meetings')){
-    getTeacherMeetings()
+    getTeacherMeetings();
+    callTeacherStudentsEmail();
 }
 else if(window.location.pathname.includes('teacher/control')){
     getWriteReportsReady();
     getWriteMocksReportsReady();
     getStudentStudyOverview();
+}
+else if(window.location.pathname.includes('teacher/tasks/vi')){
+    colorUrlsSources()
+    completeTask()
+}
+else if(window.location.pathname.includes('teacher/tasks/re')){
+    colorUrlsSources()
+    completeTask()
 }
 else if(window.location.pathname.includes('teacher/tasks/newtask')){
     callTeacherStudentsEmail()

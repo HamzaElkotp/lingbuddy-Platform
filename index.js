@@ -213,7 +213,7 @@ app.get("/get-new-overflow-study-data/:email", async(req,res)=>{
             if(Array.isArray(grammarsList) && Array.isArray(missSpilledList)){
                 let updateObj = { grammer: grammarsList, misspelling: missSpilledList};
                 let filterObj = { email };
-                console.log(updateObj)
+                // console.log(updateObj)
         
                 let doc = await Overview.findOneAndUpdate(filterObj, updateObj);
             } else {
@@ -249,7 +249,6 @@ app.get("/get-new-overflow-study-data/:email", async(req,res)=>{
     } catch(e){
         
     }
-
 })
 
 
@@ -372,9 +371,35 @@ app.post("/teacher/control/saveWriteMockReport", async(req,res)=>{
 })
 
 
+
+app.get("/teacher/tasks/vi/:id", async(req,res)=>{
+    const id = req.params.id;
+    
+    const responseData = await Vitasks.findOne({_id: id});
+    res.render('teacher/tasks/vitask', { responseData })
+})
+app.get("/teacher/tasks/re/:id", async(req,res)=>{
+    const id = req.params.id;
+    
+    const responseData = await Resourcetasks.findOne({_id: id});
+    res.render('teacher/tasks/resourcetask', { responseData })
+})
+
 app.get("/teacher/tasks/newtask", async(req,res)=>{
     res.render(`teacher/newtask`);
 })
+
+app.get("/teacher/tasks/:email", async(req,res)=>{
+    const email = req.params.email;
+
+    const allvocabsTasks = await Vitasks.find({temail: email});
+    const allGrammarTasks = await Resourcetasks.find({temail: email});
+    const jsonResponse = { allvocabsTasks, allGrammarTasks };
+
+    res.render(`teacher/tasks`, { jsonResponse });
+})
+
+
 app.post("/teacher/newtask/new-vocabs-idioms-task", async(req,res)=>{ 
     const data = await req.body;
     const newTask = new Vitasks({
