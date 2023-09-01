@@ -4,7 +4,19 @@ const currentDateFormated = `${date.getFullYear()}-${String(date.getMonth() + 1)
 
 // Function to call ChatGPT API
 const getChatGPT = async function(fun, fullMsg){
-    const response = await postEndPoint("/callChatGPT", JSON.stringify({command: fullMsg}));
+    // const response = await postEndPoint("/callChatGPT", JSON.stringify({command: fullMsg}));
+
+    const response = await fetch("https://api.openai.com/v1/chat/completions", {
+        method: "POST",
+        headers: {
+            'Authorization': `Bearer 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`,
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            model: "gpt-3.5-turbo",
+            messages: [{role: "system", content: fullMsg}],
+        }),
+    })
 
     if(!response.ok){ return getChatGPT(fun, fullMsg)}
 
