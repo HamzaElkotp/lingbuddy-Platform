@@ -60,7 +60,7 @@ async function checkUserData(userLoginData) {
 }
 
 
-app.get("https://lingbuddy-platform.vercel.app", (req,res,)=>{ 
+app.get("/", (req,res,)=>{ 
     res.render(`index`);
 })
 
