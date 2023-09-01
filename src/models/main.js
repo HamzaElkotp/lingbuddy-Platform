@@ -1192,7 +1192,7 @@ else if(window.location.pathname.includes('student')){
     getStudentMeetings();
     getStudentVItasks();
     getStudentResourcesTasks();
-    // getStudentStudyOverview();
+    getStudentStudyOverview();
 }
 else if(window.location.pathname.includes('teacher/meetings')){
     getTeacherMeetings()
@@ -1200,7 +1200,7 @@ else if(window.location.pathname.includes('teacher/meetings')){
 else if(window.location.pathname.includes('teacher/control')){
     getWriteReportsReady();
     getWriteMocksReportsReady();
-    // getStudentStudyOverview();
+    getStudentStudyOverview();
 }
 else if(window.location.pathname.includes('teacher/tasks/newtask')){
     callTeacherStudentsEmail()

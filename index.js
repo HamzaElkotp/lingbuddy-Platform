@@ -456,7 +456,8 @@ app.post("/api/register", async(req,res)=>{
 
 
 
-const apikey = process.env.OPENAI_API_KEY
+const apikey = process.env.OPENAI_API_KEY;
+
 
 app.post("/callChatGPT", async(req,res)=>{ 
     const command = await req.body;
