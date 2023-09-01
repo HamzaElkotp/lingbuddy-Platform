@@ -11,7 +11,7 @@ import bodyParser from 'body-parser';
 dotenvConfig();
 
 // // DB models
-import { User, Writings, Speakings, WritingMock, SpeakingMock, Meetings, Vitasks, Resourcetasks, Overview } from './dbmodels/index.js';
+import { User, Writings, Speakings, WritingMock, SpeakingMock, Meetings, Vitasks, Resourcetasks, Overview } from '../dbmodels/index.js';
 
 // const User = require('./dbmodels/usermodel');
 // const Writings = require('./dbmodels/writingmodel');
@@ -25,9 +25,9 @@ import { User, Writings, Speakings, WritingMock, SpeakingMock, Meetings, Vitasks
 
 
 // langchain custom models
-import get_MissGrammared_list from './langchainmodels/grammarStore.js'
-import find_MissGrammared_list from './langchainmodels/grammarParsers.js'
-import find_MissWords_list from './langchainmodels/misswordsParsers.js'
+import get_MissGrammared_list from '../langchainmodels/grammarStore.js'
+import find_MissGrammared_list from '../langchainmodels/grammarParsers.js'
+import find_MissWords_list from '../langchainmodels/misswordsParsers.js'
 
 
 const app = express();
@@ -37,7 +37,7 @@ mongoose.connect(dbURI, {useNewUrlParser: true, useUnifiedTopology: true});
 
 
 app.set('view engine', 'ejs');
-app.listen(8080 || process.env.PORT);
+// app.listen(8080 || process.env.PORT);
 
 
 app.use(express.static('assets'));
@@ -468,5 +468,4 @@ app.post("/callChatGPT", async(req,res)=>{
     res.json(responseData)
 })
 
-
-export default app;
+export default app
