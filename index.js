@@ -7,6 +7,13 @@ import express from 'express';
 import { config as dotenvConfig } from 'dotenv';
 import mongoose from 'mongoose';
 import bodyParser from 'body-parser';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+
+const __dirname = path.dirname(__filename);
+
 
 dotenvConfig();
 
@@ -36,6 +43,7 @@ const dbURI = process.env.DB_HOST;
 mongoose.connect(dbURI, {useNewUrlParser: true, useUnifiedTopology: true});
 
 
+app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
 let port = process.env.PORT || 8080
 
