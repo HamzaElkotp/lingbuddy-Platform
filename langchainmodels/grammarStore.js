@@ -2,6 +2,7 @@ import { config } from "dotenv";
 config();
 
 import { OpenAIEmbeddings } from "langchain/embeddings/openai";
+
 import { FaissStore } from "langchain/vectorstores/faiss";
 import { OpenAI } from "langchain/llms/openai";
 import { RetrievalQAChain, loadQAStuffChain } from "langchain/chains";
