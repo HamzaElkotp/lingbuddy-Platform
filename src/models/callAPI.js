@@ -540,9 +540,39 @@ const activeInterface = function(e){
     parent.classList.add("active");
     return e
 }
-const generateRmCommand = function(){
-    let days = Math.floor((new Date(rmDateSelect.value) - date) / (24 * 60 * 60 * 1000))
-    return `I've ${days} days before my IETLS exam, generate studying roadmap then suggest YouTube channels to prepare from.`
+const generateRmCommand = async function(){
+    let days = Math.floor((new Date(rmDateSelect.value) - date) / (24 * 60 * 60 * 1000));
+    let improve = document.getElementById("improve").value;
+    let studyhours = document.getElementById("studyhours").value;
+
+    let semail = await JSON.parse(window.localStorage.getItem('userLogin'));
+    semail = semail.email;
+    
+    let studentOverView = await getStudentStudyOverviewToTasks(semail);
+    let grammarList = []
+    studentOverView["grammer"]?.forEach((gra)=>{
+        grammarList.push(gra.name)
+    })
+
+    let command = ""
+
+    if(improve != "Grammar"){
+        if(grammarList.length>0){
+            command = `I've ${days} days before my IETLS exam, I want to improve my ${improve}. I study ${studyhours}hour/day. These are grammars I'm weak at: ${grammarList.join(", ")}. Generate a studying roadmap`
+        }else{
+            command = `I've ${days} days before my IETLS exam, I want to improve my ${improve}. I study ${studyhours}hour/day. Generate a studying roadmap`
+        }
+        // then suggest YouTube channels to prepare from.
+    } else{
+        if(grammarList.length>0){
+            command = `I've ${days} days before my IETLS exam, I want to improve my ${improve}. I study ${studyhours}hour/day. Focus on these grammars: ${grammarList.join(", ")}. Generate a studying roadmap`
+        } else{
+            command = `I've ${days} days before my IETLS exam, I want to improve my ${improve}. I study ${studyhours}hour/day. Generate a studying roadmap`
+        }
+    }
+
+
+    await getChatGPT(proccessRm, command);
 }
 const pushRoadmap = function(rm){
     roadmapDetails.textContent = rm.choices[0].message.content
@@ -560,8 +590,8 @@ const show3rdInterface = function(e){
 }
 const callRMgenerator = composer(hideInterface, activeInterface);
 const proccessRm = composer(pushRoadmap, hide2ndInterface, show3rdInterface)
-const callRmGeneration = composer(generateRmCommand, (command)=>{getChatGPT(proccessRm, command)});
-const roadmapGeneration = composer(callRMgenerator, callRmGeneration);
+// const callRmGeneration = composer(generateRmCommand, (command)=>{getChatGPT(proccessRm, command)});
+const roadmapGeneration = composer(callRMgenerator, generateRmCommand);
 
 generateRMbtn?.addEventListener('click', (e)=>{
     checkDate(()=>{roadmapGeneration(e)})
@@ -571,6 +601,31 @@ regenerateRMbtn?.addEventListener('click', (e)=>{
 });
 
 
+activateRMbtn.addEventListener('click', async()=>{
+    let semail = await JSON.parse(window.localStorage.getItem('userLogin'));
+    semail = semail.email;
 
+    let improve = document.getElementById("improve").value;
+    let studyHours = document.getElementById("studyhours").value;
+
+    let date = new Date();
+    let day = date.getDate();
+    let month = date.getMonth() + 1;
+    let startDate = `${day.toString().padStart(2, '0')}/${month.toString().padStart(2, '0')}`;
+
+    let endDate = new Date(rmDateSelect.value)
+    day = endDate.getDate();
+    month = endDate.getMonth() + 1;
+    endDate = `${day.toString().padStart(2, '0')}/${month.toString().padStart(2, '0')}`;
+
+    let details = roadmapDetails.textContent;
+    const response = await postEndPoint('/student/roadmap/activate-new-roadmap', JSON.stringify({ email: semail, roadmap:details, improve, studyHours, startDate, endDate }));
+
+    let resData = await response.json();
+    if(resData["success"] == true){
+        window.location.reload()
+    }
+
+})
 
 

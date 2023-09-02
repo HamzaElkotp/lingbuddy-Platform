@@ -18,7 +18,7 @@ const __dirname = path.dirname(__filename);
 dotenvConfig();
 
 // // DB models
-import { User, Writings, Speakings, WritingMock, SpeakingMock, Meetings, Vitasks, Resourcetasks, Overview } from './dbmodels/index.js';
+import { User, Writings, Speakings, WritingMock, SpeakingMock, Meetings, Vitasks, Resourcetasks, Overview, Roadmaps } from './dbmodels/index.js';
 
 // const User = require('./dbmodels/usermodel');
 // const Writings = require('./dbmodels/writingmodel');
@@ -33,7 +33,7 @@ import { User, Writings, Speakings, WritingMock, SpeakingMock, Meetings, Vitasks
 
 
 // langchain custom models
-// import MissGrammared_list from './langchainmodels/grammarStore.js'
+import MissGrammared_list from './langchainmodels/grammarStore.js'
 import find_MissGrammared_list from './langchainmodels/grammarParsers.js'
 import find_MissWords_list from './langchainmodels/misswordsParsers.js'
 
@@ -173,7 +173,6 @@ app.post("/student/reports/new-writing-report", async(req,res)=>{
     let reportData = await req.body;
 
     let newReport = new Writings(reportData)
-    newReport.save()
 })
 
 
@@ -181,6 +180,15 @@ app.post("/student/reports/new-writing-report", async(req,res)=>{
 
 app.get("/student/roadmap", (req,res)=>{ 
     res.render(`student/roadmap`);
+})
+app.post("/student/roadmap/activate-new-roadmap", async(req,res)=>{ 
+    let reportData = await req.body;
+
+    const newRoadmap = new Roadmaps(reportData)
+    newRoadmap.save()
+    .then((result)=>{
+        res.json({success: true})
+    })
 })
 
 
@@ -444,7 +452,7 @@ app.post("/get-langchain-grammar", async(req,res)=>{
 
     setTimeout(() => {
         res.json({grammarList})
-    }, 3000);
+    }, 4000);
 })
 
 

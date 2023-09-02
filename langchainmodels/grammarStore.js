@@ -1,26 +1,26 @@
 import { config } from "dotenv";
 config();
 
-import { OpenAIEmbeddings } from "langchain/embeddings/openai";
+// import { OpenAIEmbeddings } from "langchain/embeddings/openai";
 
-import { FaissStore } from "langchain/vectorstores/faiss";
-import { OpenAI } from "langchain/llms/openai";
-import { RetrievalQAChain, loadQAStuffChain } from "langchain/chains";
+// import { FaissStore } from "langchain/vectorstores/faiss";
+// import { OpenAI } from "langchain/llms/openai";
+// import { RetrievalQAChain, loadQAStuffChain } from "langchain/chains";
 
-const embeddings = new OpenAIEmbeddings();
-const vectorStore = await FaissStore.load("./langchainmodels/faiss/grammar", embeddings);
+// const embeddings = new OpenAIEmbeddings();
+// const vectorStore = await FaissStore.load("./langchainmodels/faiss/grammar", embeddings);
 
-const model = new OpenAI({ temperature: 0 });
+// const model = new OpenAI({ temperature: 0 });
 
-const chain = new RetrievalQAChain({
-  combineDocumentsChain: loadQAStuffChain(model),
-  retriever: vectorStore.asRetriever(),
-  returnSourceDocuments: true,
-});
+// const chain = new RetrievalQAChain({
+//   combineDocumentsChain: loadQAStuffChain(model),
+//   retriever: vectorStore.asRetriever(),
+//   returnSourceDocuments: true,
+// });
 
 
-const grammarsData = [
-  {
+const grammarsData = {
+  "modal verbs":{
     shortExplanation: "Modal verbs are auxiliary verbs used to express necessity, possibility, permission, or ability. They combine with the base form of the main verb.",
     examples: [
       "Necessity: 'You must study for the test.'",
@@ -37,7 +37,7 @@ const grammarsData = [
       { question: "Can modal verbs be used in continuous tenses?", answer: "Modal verbs themselves don't have progressive forms; they're followed by the base verb." }
     ],
   },
-  {
+  "present continuous":{
     shortExplanation: "The present continuous is used to talk about actions that are happening now or around now. We use the present continuous to talk about temporary situations and actions that are in progress. We also use the present continuous to talk about future arrangements.",
     examples: [
       "I am studying English at the moment.",
@@ -54,7 +54,7 @@ const grammarsData = [
       { question: "What are some examples of verbs of movement used with present continuous?", answer: "Here are some examples of verbs of movement used with present continuous: - I am walking to work today. - She is running in the park." }
     ],
   },
-  {
+  "present perfect":{
     shortExplanation: "Modal verbs are auxiliary verbs used to express necessity, possibility, permission, or ability. They combine with the base form of the main verb.",
     examples: [
       "Necessity: 'You must study for the test.'",
@@ -71,7 +71,7 @@ const grammarsData = [
       { question: "Can modal verbs be used in continuous tenses?", answer: "Modal verbs themselves don't have progressive forms; they're followed by the base verb." }
     ],
   },
-  {
+  "present simple":{
     shortExplanation: "The present continuous is used to talk about actions that are happening now or around now. We use the present continuous to talk about temporary situations and actions that are in progress. We also use the present continuous to talk about future arrangements.",
     examples: [
       "I am studying English at the moment.",
@@ -88,33 +88,40 @@ const grammarsData = [
       { question: "What are some examples of verbs of movement used with present continuous?", answer: "Here are some examples of verbs of movement used with present continuous: - I am walking to work today. - She is running in the park." }
     ],
   }
-]
+}
 
 const pattern = /#Pointer\/(\d+)/;
 
 async function MissGrammared_list(query){
-  let newQuery = `return pointer of each grammer: ${query}`
-  const res = await chain.call({
-    query: newQuery
-  });
+  // let newQuery = `return pointer of each grammer: ${query}`
+  // const res = await chain.call({
+  //   query: newQuery
+  // });
 
-  let response = await res.text;
+  // let response = await res.text;
 
-  const pattern = /#Pointer\/(\d+)/g;
-  let matches = response.match(pattern);
+  // const pattern = /#Pointer\/(\d+)/g;
+  // let matches = response.match(pattern);
 
-  console.log(matches)
+  // console.log(matches)
 
-  if(!Array.isArray(matches)){
-    matches = [matches]
-  }
+  // if(!Array.isArray(matches)){
+  //   matches = [matches]
+  // }
 
-  const extractedNumbers = matches.map((match) => match.match(/\d+/)[0]);
+  // const extractedNumbers = matches.map((match) => match.match(/\d+/)[0]);
   
+  // let arr = [];
+  // extractedNumbers.forEach((ele)=>{
+  //   arr.push(grammarsData[ele])
+  // })
+
+
   let arr = [];
-  extractedNumbers.forEach((ele)=>{
-    arr.push(grammarsData[ele])
+  query.split(", ").forEach((ele)=>{
+    arr.push(grammarsData[ele.toLowerCase()])
   })
+  console.log(arr)
 
   return arr;
 }

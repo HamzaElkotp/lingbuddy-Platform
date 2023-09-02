@@ -7,3 +7,4 @@ export { default as Meetings } from './meetings.js';
 export { default as Vitasks } from './vitask.js';
 export { default as Resourcetasks } from './resourcetasks.js';
 export { default as Overview } from './overview.js';
+export { default as Roadmaps } from './roadmap.js';
