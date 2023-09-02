@@ -972,21 +972,23 @@ const getWriteMocksReportsReady = function(){
 
 
 function pushOverviewToTables(ele, tid){
-    let missedTable = document.getElementById(tid).querySelector("tbody");
+    if(document.getElementById(tid)){
+        let missedTable = document.getElementById(tid).querySelector("tbody");
 
-    const tr = document.createElement("tr");
-
-    const td1 = document.createElement("td");
-    td1.textContent = ele.name || ele.worngWord;
-
-
-    const td2 = document.createElement("td");
-    td2.textContent = ele.number || ele.missedWord;
-
-    tr.appendChild(td1);
-    tr.appendChild(td2);
-
-    missedTable.appendChild(tr);
+        const tr = document.createElement("tr");
+    
+        const td1 = document.createElement("td");
+        td1.textContent = ele.name || ele.worngWord;
+    
+    
+        const td2 = document.createElement("td");
+        td2.textContent = ele.number || ele.missedWord;
+    
+        tr.appendChild(td1);
+        tr.appendChild(td2);
+    
+        missedTable.appendChild(tr);
+    }
 }
 
 
@@ -1022,6 +1024,21 @@ const getStudentStudyOverview = async function(){
         data.misspelling.forEach((ele)=>{
             pushOverviewToTables(ele, "missedTable");
         })
+        return data
+    }
+} 
+
+
+const getStudentStudyOverviewToTasks = async function(pemail){
+    const response = await fetch(`/get-new-overflow-study-data/${pemail}`, {method: "GET"});
+    if (response.ok) {
+        const data = await response.json();
+        // if(data.success == false ){
+        //     let info = document.getElementById('info');
+        //     info.textContent = "No reports were found!"
+        //     return 
+        // }
+        return data
     }
 } 
 
@@ -1060,10 +1077,139 @@ try{
 }
 
 const showaTask = document.querySelector('#showTask');
-showaTask?.addEventListener('click', ()=>{
+showaTask?.addEventListener('click', async()=>{
     const selectedRadio = document.querySelector('input[name="task"]:checked').value;
-    document.querySelector(`[taskis="${selectedRadio}"]`).classList.remove('is-hidden');
+    let opened = document.querySelector(`[taskoverview="${selectedRadio}"]`)
+    opened.classList.remove('is-hidden');
+    let targetUser = document.querySelector("#selectStudent").value;
+    let useNot = document.getElementById("useNot")
+
+    if(selectedRadio == "vocabIdioms"){
+        const data = await getStudentStudyOverviewToTasks(targetUser);
+        if(data != undefined && data.misspelling != undefined && data.misspelling.length > 0){
+            let collectingStudentVocs = document.getElementById('collectingStudentVocs');
+            setTimeout(() => {
+                collectingStudentVocs.remove()
+                let tabel = document.getElementById('missedTable');
+
+                tabel.classList.remove('hidden');
+                useNot.classList.remove('is-hidden');
+                opened.querySelector('.nota').classList.remove('is-hidden');
+
+                data.misspelling?.forEach((ele)=>{
+                    pushOverviewToTables(ele, "missedTable");
+                })
+            }, 1000);
+        } else{
+            collectingStudentVocs.textContent = "No Misspelled Words Found"
+            let noToUse = document.getElementById("noToUse");
+            noToUse.classList.remove('is-hidden');
+        }
+    } else if(selectedRadio == "resource"){
+        const data = await getStudentStudyOverviewToTasks(targetUser);
+        if(data != undefined && data.grammer != undefined && data.grammer.length > 0){
+            let collectingStudentGram = document.getElementById('collectingStudentGram');
+            setTimeout(() => {
+                collectingStudentGram.remove()
+                let tabel = document.getElementById('grammarTable');
+
+                tabel.classList.remove('hidden');
+                useNot.classList.remove('is-hidden');
+                opened.querySelector('.nota').classList.remove('is-hidden');
+
+                data.grammer?.forEach((ele)=>{
+                    pushOverviewToTables(ele, "grammarTable");
+                })
+            }, 1000);
+        } else{
+            collectingStudentGram.textContent = "No Grammars Found"
+            let noToUse = document.getElementById("noToUse");
+            noToUse.classList.remove('is-hidden');
+        }
+    }
 })
+
+
+function showTaskCreatePage(){
+    const selectedRadio = document.querySelector('input[name="task"]:checked').value;
+    let opened = document.querySelector(`[taskis="${selectedRadio}"]`);
+    opened.classList.remove('is-hidden');
+    return opened
+}
+
+let noOverView = document.querySelector("#noOverView");
+noOverView?.addEventListener('click', showTaskCreatePage)
+
+let unuseOverView = document.querySelector("#unuseOverView");
+unuseOverView?.addEventListener('click', showTaskCreatePage);
+
+let useOverView = document.querySelector("#useOverView");
+useOverView?.addEventListener('click', async ()=>{
+    const selectedRadio = document.querySelector('input[name="task"]:checked').value;
+    let table = document.querySelector(`[taskoverview="${selectedRadio}"]`).querySelector('table');
+    let alltds = Array(...table.querySelector('tbody').querySelectorAll("td"));
+
+    let data = ""
+
+    if(selectedRadio == "vocabIdioms"){
+        let filtered = [];
+        alltds.forEach((v, i) => {
+            if(i % 2 != 0){
+                filtered.push(v.textContent)
+            }
+        });
+
+        useOverView.disabled = true;
+        unuseOverView.disabled = true;
+        noOverView.disabled = true;
+
+        infoUse.textContent = "Wait sometime to Prepare these Vocabularies"
+
+        let command = `return simple definition of all these vocabularies: ${filtered.join(', ')}`;
+        const response = await postEndPoint("/callChatGPT", JSON.stringify({command}))
+        let tempData = await response.json();
+        data = tempData.choices[0].message.content;
+
+    } else if(selectedRadio == "resource"){
+        let filtered = [];
+        // alltds.forEach((v, i) => {
+        //     if(i % 2 != 0){
+        //         filtered.push(v.textContent)
+        //     }
+        // });
+
+        // let command = `return simple definition of all these vocabularies: ${filtered.join(', ')}`;
+
+    } 
+
+    let textarea = showTaskCreatePage().querySelector('textarea');
+    textarea.value = data;
+
+    const currentInterface = document.querySelector(`[interfaceId="3"]`);
+    const targetInterface = document.querySelector(`[interfaceId="4"]`);
+
+    if (currentInterface && targetInterface) {
+        currentInterface.classList.remove('active');
+        setTimeout(() => {
+            currentInterface.classList.add('is-hidden');
+            targetInterface.classList.remove('is-hidden');
+        }, 300);
+        setTimeout(() => {
+            targetInterface.classList.add('active');
+        }, 700);
+    }
+});
+
+
+
+
+
+
+
+
+
+
+
 
 const hideButtons = document.querySelectorAll('[hideInterface]');
 hideButtons?.forEach((btn)=>{
@@ -1100,9 +1246,8 @@ vocGenerateBtn?.addEventListener('click', async ()=>{
 
     let workdsNum = currectWindow.querySelector('[type="number"]').value;
     let topic = currectWindow.querySelector('[name="topicoptions"]').value;
-    let type = currectWindow.querySelector('[name="type"]').value.replace("$NuM", workdsNum);
     
-    const response = await postEndPoint("/callChatGPT", JSON.stringify({command: `Generate ${workdsNum} ${type} about ${topic}, with there meanings to study it for IELTS. At max 5 resources.`}))
+    const response = await postEndPoint("/callChatGPT", JSON.stringify({command: `Generate ${workdsNum} Vocabularie definitions about ${topic}, with there meanings to study it for IELTS.`}))
     const data = await response.json();
 
     let textarea = currectWindow.querySelector('textarea')
@@ -1121,11 +1266,11 @@ sendVoIds?.addEventListener('click', async()=>{
     let targetUser = document.querySelector("#selectStudent").value;
     let taskname = document.querySelector("#vitaskName").value;
     
-    let number = document.querySelector("[taskis='vocabIdioms']").querySelector('[type="number"]').value;
+    let number = document.querySelector("[taskis='vocabIdioms']").querySelector('[type="number"]').value || 1;
     const response = await postEndPoint("/teacher/newtask/new-vocabs-idioms-task", JSON.stringify({taskContent: vodsIdoms, target: targetUser, taskname, number, temail}))
     const data = await response.json();
     if(data.success){
-        window.location.href = "./"
+        window.location.href = `./${temail}`
     }
 })
 
@@ -1164,7 +1309,7 @@ sendResource?.addEventListener('click', async()=>{
     const response = await postEndPoint("/teacher/newtask/new-resource-task", JSON.stringify({taskContent: resources, target: targetUser, taskname, temail}))
     const data = await response.json();
     if(data.success){
-        window.location.href = "./"
+        window.location.href = `./${temail}`
     }
 })
 

@@ -2195,6 +2195,29 @@ table.dataTable > tbody > tr .dataTables_empty {
 
 
 
+.showHideAnimation {
+    animation: showHideAnimation 4s linear 0.5s infinite;
+    opacity: 1;
+}
+@keyframes showHideAnimation {
+    40%{
+        opacity: 1;
+    }
+    70%{
+        opacity: 0;
+    }
+    100%{
+        opacity: 1;
+    }
+}
+
+table.transt{
+    opacity: 1;
+    transition: 0.5s;
+}
+table.transt.hidden{
+    opacity: 0 !important;
+}
 
 
 

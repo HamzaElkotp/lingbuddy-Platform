@@ -40,15 +40,15 @@
                             <label class="column is-half-desktop" for="vocabIdioms">
                                 <div class="selectTask isai">
                                     <p class="is-size-4 cus80 has-text-centered">Vocabularies</p>
-                                    <p class="has-text-weight-medium is-size-6 cus60 has-text-centered">Have the student study some vocabularies & Idioms.</p>
+                                    <p class="has-text-weight-medium is-size-6 cus60 has-text-centered">Have the student study some vocabularies.</p>
                                 </div>
                             </label> 
 
                             <input type="radio" id="resource" name="task" class="is-hidden" value="resource">
                             <label class="column is-half-desktop" for="resource">
                                 <div class="selectTask isai">
-                                    <p class="is-size-4 cus80 has-text-centered">Recommend a Resource</p>
-                                    <p class="has-text-weight-medium is-size-6 cus60 has-text-centered">Have the student study from some resources.</p>
+                                    <p class="is-size-4 cus80 has-text-centered">Grammar</p>
+                                    <p class="has-text-weight-medium is-size-6 cus60 has-text-centered">Have the student improve their Grammar knowledge.</p>
                                 </div>
                             </label> 
                         </div>
@@ -61,38 +61,83 @@
 
                 <div class="column is-four-fifths-desktop is-full-tablet is-full-mobile is-hidden" interfaceId="3">
                     
+                    <div class="block is-hidden" taskoverview="vocabIdioms">
+                        <h2 class="title is-4 has-text-centered cus80">Vocabularies Task</h2>
+                        <p class="is-size-58 has-text-weight-medium cus60 has-text-centered showHideAnimation" id="collectingStudentVocs">Be patient, Collecting Student Misspelled Vocabularies...</p>
+                        <br>
+                        <div class="tableBox">
+                            <table id="missedTable" class="transt hidden">
+                                <thead>
+                                    <tr>
+                                        <td class="is-half">Misspelled Words (what you had written)</td>
+                                        <td class="is-half">Correction</td>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    
+                                </tbody>
+                            </table> 
+                        </div>
+                        <br>
+                        <p class="is-size-5 has-text-weight-medium cus60 has-text-centered is-hidden nota">Do you want to use these vocabularies in the task?</p>
+                        <br>
+                    </div>
+
+                    <div class="block is-hidden" taskoverview="resource">
+                        <h2 class="title is-4 has-text-centered cus80">Grammar Task</h2>
+                        <p class="is-size-58 has-text-weight-medium cus60 has-text-centered showHideAnimation" id="collectingStudentGram">Be patient, Collecting Student Misspelled Vocabularies...</p>
+                        <br>
+                        <div class="tableBox">
+                            <table id="grammarTable" class="transt hidden">
+                                <thead>
+                                    <tr>
+                                        <td>Grammar</td>
+                                        <td class="td-small">Flag </td>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    
+                                </tbody>
+                            </table> 
+                        </div>
+                        <br>
+                        <p class="is-size-5 has-text-weight-medium cus60 has-text-centered is-hidden nota">Do you want to use these Grammars in the task?</p>
+                        <br>
+                    </div>
+
+                    <div class="buttons is-centered is-hidden has-text-centered" id="useNot">
+                        <button class="button cus60" id="useOverView">Yes Use Them</button>
+                        <button class="button is-info is-outlined" hideInterface="3" showInterface="4" id="unuseOverView">No don't Use</button>
+                    </div>
+
+                    <div class="buttons is-centered is-hidden has-text-centered" id="noToUse">
+                        <button class="button cus60 is-outlined" hideInterface="3" showInterface="4" id="noOverView">Continue <i class="fa-solid fa-arrow-right" style="font-size:12px; padding-left:5px"></i></button>
+                    </div>
+
+                    <p class="info cus60 has-text-centered" id="infoUse"></p>
+                </div>
+
+                <div class="column is-four-fifths-desktop is-full-tablet is-full-mobile is-hidden" interfaceId="4">
+                    
                     <div class="block is-hidden" taskis="vocabIdioms">
-                        <h2 class="title is-4 has-text-centered cus80">Vocabularies & Idioms Task</h2>
+                        <h2 class="title is-4 has-text-centered cus80">Vocabularies Task</h2>
                         <div class="columns">
                             <div class="column is-half">
                                 <div class="box">
                                     <h4 class="title is-55 has-text-centered cus60">Generate With LingBuddyAI</h4>
 
                                     <div class="field">
-                                        <label class="label has-text-weight-medium cus80">Type</label>
+                                        <label class="label has-text-weight-medium cus60">Numebr of Vocabularies</label>
                                         <div class="control">
-                                            <div class="select is-fullwidth">
-                                                <select name="type" required>
-                                                    <option value="Vocabularie definitions">Vocabularies
-                                                    <option value="Idioms">Idioms
-                                                    <option value="Vocabularies definitions and $NuM Idioms">Both
-                                                </select>
-                                            </div>
+                                            <input class="input" type="number" id="num" min="1" max="20" placeholder="Number of Vocabularies" required>
                                         </div>
                                     </div>
 
                                     <div class="field">
-                                        <label class="label has-text-weight-medium cus60">Numebr of Vocabs/Idioms</label>
-                                        <div class="control">
-                                            <input class="input" type="number" id="num" min="1" max="20" placeholder="Number of Vocabs or Idioms" required>
-                                        </div>
-                                    </div>
-
-                                    <div class="field">
-                                        <label class="label has-text-weight-medium cus60">Vocabs / Idioms Topic</label>
+                                        <label class="label has-text-weight-medium cus60">Vocabularies Topic</label>
                                         <label class="is-size-7 label has-text-weight-medium">You can write your own topic</label>
                                         <div class="control">
-                                            <input list="topicoptions" name="topicoptions" class="input" placeholder="Vocabs / Idioms Topic, You can Write you own topic">
+                                            <input list="topicoptions" name="topicoptions" class="input" placeholder="Vocabularies Topic, You can Write you own topic">
                                             <datalist id="topicoptions">
                                                 <option value="Random collection">
                                                 <option value="Travel">
@@ -131,7 +176,7 @@
                                     <div class="field">
                                         <label class="label has-text-weight-medium cus80">Put Vocabularies or use <span class="cus60">LingBuddyAI</span> to generate them!</label>
                                         <div class="control">
-                                            <textarea class="textarea" id="vitasktextarea" placeholder="Put vocabs/Idioms here or generate with LingBuddyAI"></textarea>
+                                            <textarea class="textarea" id="vitasktextarea" placeholder="Put Vocabularies here or generate with LingBuddyAI"></textarea>
                                         </div>
                                     </div>
                                     <div class="field">

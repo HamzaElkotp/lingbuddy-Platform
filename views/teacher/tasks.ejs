@@ -9,134 +9,141 @@
     <%- include('../partials/desktopNavT.ejs') %>
 
     <div class="contentBox">
-        <div class="theContent">
-            <section dashSect="tasks" class="lessonsPage active">
-                <h2 class="label is-3 has-text-weight-medium">Tasks Not finished Yet</h2>
+        <section dashSect="tasks" class="lessonsPage active">
+            <div class="is-flex marginBottom10 is-justify-content-space-between is-align-items-center">
+                <h2 class="label is-size-55 has-text-weight-medium cus60 is-marginless">Your Students Tasks</h2>
                 
-                <div class="type-selector">
-                    <span class="tag is-medium is-purpleGradedeg" showerData="nviTask">Vocabularies</span>
-                    <span class="tag is-light is-medium is-purpleGradedeg" showerData="nrecomendations">Grammar</span>
+                <div class="buttons is-margine-left">
+                    <a class="button is-purpleGrade" href="../tasks/newtask" id="newMeetLink"><i class="fa-solid fa-plus"></i> New Task</a>          
                 </div>
+            </div>
 
-                <div class="column is-6 is-paddingless margintop-10">
-                    <div class="field has-addons">
-                        <div class="control is-w100 is-flex">
-                            <input class="input is-fullwidth" type="text" placeholder="Search by ID, Date, Name, Text, anything" searchPlace="nviTask">
-                            <button class="button is-purpleGrade" searchbtn><i class="fas fa-search" style="padding-right: 10px;"></i> search</button>
-                        </div>
+            <h2 class="label is-3 has-text-weight-medium">Tasks Not finished Yet</h2>
+
+            
+            <div class="type-selector">
+                <span class="tag is-medium is-purpleGradedeg" showerData="nviTask">Vocabularies</span>
+                <span class="tag is-light is-medium is-purpleGradedeg" showerData="nrecomendations">Grammar</span>
+            </div>
+
+            <div class="column is-6 is-paddingless margintop-10">
+                <div class="field has-addons">
+                    <div class="control is-w100 is-flex">
+                        <input class="input is-fullwidth" type="text" placeholder="Search by ID, Date, Name, Text, anything" searchPlace="nviTask">
+                        <button class="button is-purpleGrade" searchbtn><i class="fas fa-search" style="padding-right: 10px;"></i> search</button>
                     </div>
                 </div>
+            </div>
 
-                <div class="reportBoxes">
-                    <div toShowData="nviTask" class="reportSection show">
-                        <div class="columns is-multiline" id="nviTask">
-                            <% jsonResponse.allvocabsTasks.forEach((report, i) => { %>
-                                <% if (report.answered == "false") {%>
-                                    <div class="column is-3 reportData">
-                                        <a class="reportBox" href="/teacher/tasks/vi/<%= report._id %>">
-                                            <p class="is-size-7">Created At: 
-                                                <%time = report.createdAt%>
-                                                <%date = new Date(time)%>
-                                                <%day = date.getDate()%>
-                                                <%month = date.getMonth() + 1;%>
-                                                <%month = date.getMonth() + 1;%>
-                                                <span class="dt"><%= `${day.toString().padStart(2, '0')}/${month.toString().padStart(2, '0')}`%></span>
-                                            </p>
-                                            <p class="is-size-6">taskname: <span class="sc"><%= report.taskname %></span></p>
-                                            <p class="is-size-6">student: <span class="sc"><%= report.target %></span></p>
-                                        </a>
-                                    </div>
-                            <% }}); %>
-                        </div>
-                    </div>
-                    <div toShowData="nrecomendations" class="reportSection">
-                        <div class="columns is-multiline" id="nrecomendations">
-                            <% jsonResponse.allGrammarTasks.forEach((report, i) => { %>
-                                <% if (report.answered == "false") {%>
-                                    <div class="column is-3 reportData">
-                                        <a class="reportBox" href="/teacher/tasks/re/<%= report._id %>">
-                                            <p class="is-size-7">Created At: 
-                                                <%time = report.createdAt%>
-                                                <%date = new Date(time)%>
-                                                <%day = date.getDate()%>
-                                                <%month = date.getMonth() + 1;%>
-                                                <%month = date.getMonth() + 1;%>
-                                                <span class="dt"><%= `${day.toString().padStart(2, '0')}/${month.toString().padStart(2, '0')}`%></span>
-                                            </p>
-                                            <p class="is-size-6">taskname: <span class="sc"><%= report.taskname %></span></p>
-                                            <p class="is-size-6">student: <span class="sc"><%= report.target %></span></p>
-                                        </a>
-                                    </div>
-                            <% }}); %>
-                        </div>
+            <div class="reportBoxes">
+                <div toShowData="nviTask" class="reportSection show">
+                    <div class="columns is-multiline" id="nviTask">
+                        <% jsonResponse.allvocabsTasks.forEach((report, i) => { %>
+                            <% if (report.answered == "false") {%>
+                                <div class="column is-3 reportData">
+                                    <a class="reportBox" href="/teacher/tasks/vi/<%= report._id %>">
+                                        <p class="is-size-7">Created At: 
+                                            <%time = report.createdAt%>
+                                            <%date = new Date(time)%>
+                                            <%day = date.getDate()%>
+                                            <%month = date.getMonth() + 1;%>
+                                            <%month = date.getMonth() + 1;%>
+                                            <span class="dt"><%= `${day.toString().padStart(2, '0')}/${month.toString().padStart(2, '0')}`%></span>
+                                        </p>
+                                        <p class="is-size-6">taskname: <span class="sc"><%= report.taskname %></span></p>
+                                        <p class="is-size-6">student: <span class="sc"><%= report.target %></span></p>
+                                    </a>
+                                </div>
+                        <% }}); %>
                     </div>
                 </div>
-
-                <hr>
-
-
-                <h2 class="label is-3 has-text-weight-medium">Finished Tasks</h2>
-
-                <div class="type-selector">
-                    <span class="tag is-medium is-purpleGradedeg" showerData="viTask">Vocabularies</span>
-                    <span class="tag is-light is-medium is-purpleGradedeg" showerData="recomendations">Grammar</span>
-                </div>
-
-                <div class="column is-6 is-paddingless margintop-10">
-                    <div class="field has-addons">
-                        <div class="control is-w100 is-flex">
-                            <input class="input is-fullwidth" type="text" placeholder="Search by ID, Date, Name, Text, anything" searchPlace="viTask">
-                            <button class="button is-purpleGrade" searchbtn><i class="fas fa-search" style="padding-right: 10px;"></i> search</button>
-                        </div>
+                <div toShowData="nrecomendations" class="reportSection">
+                    <div class="columns is-multiline" id="nrecomendations">
+                        <% jsonResponse.allGrammarTasks.forEach((report, i) => { %>
+                            <% if (report.answered == "false") {%>
+                                <div class="column is-3 reportData">
+                                    <a class="reportBox" href="/teacher/tasks/re/<%= report._id %>">
+                                        <p class="is-size-7">Created At: 
+                                            <%time = report.createdAt%>
+                                            <%date = new Date(time)%>
+                                            <%day = date.getDate()%>
+                                            <%month = date.getMonth() + 1;%>
+                                            <%month = date.getMonth() + 1;%>
+                                            <span class="dt"><%= `${day.toString().padStart(2, '0')}/${month.toString().padStart(2, '0')}`%></span>
+                                        </p>
+                                        <p class="is-size-6">taskname: <span class="sc"><%= report.taskname %></span></p>
+                                        <p class="is-size-6">student: <span class="sc"><%= report.target %></span></p>
+                                    </a>
+                                </div>
+                        <% }}); %>
                     </div>
                 </div>
-                
-                <div class="reportBoxes">
-                    <div toShowData="viTask" class="reportSection show">
-                        <div class="columns is-multiline" id="viTask">
-                            <% jsonResponse.allvocabsTasks.forEach((report, i) => { %>
-                                <% if (report.answered == "true") {%>
-                                    <div class="column is-3 reportData">
-                                        <a class="reportBox" href="/teacher/tasks/vi/<%= report._id %>">
-                                            <p class="is-size-7">Created At: 
-                                                <%time = report.createdAt%>
-                                                <%date = new Date(time)%>
-                                                <%day = date.getDate()%>
-                                                <%month = date.getMonth() + 1;%>
-                                                <%month = date.getMonth() + 1;%>
-                                                <span class="dt"><%= `${day.toString().padStart(2, '0')}/${month.toString().padStart(2, '0')}`%></span>
-                                            </p>
-                                            <p class="is-size-6">taskname: <span class="sc"><%= report.taskname %></span></p>
-                                            <p class="is-size-6">student: <span class="sc"><%= report.target %></span></p>
-                                        </a>
-                                    </div>
-                            <% }}); %>
-                        </div>
-                    </div>
-                    <div toShowData="recomendations" class="reportSection">
-                        <div class="columns is-multiline" id="recomendations">
-                            <% jsonResponse.allGrammarTasks.forEach((report, i) => { %>
-                                <% if (report.answered == "true") {%>
-                                    <div class="column is-3 reportData">
-                                        <a class="reportBox" href="/teacher/tasks/re/<%= report._id %>">
-                                            <p class="is-size-7">Created At: 
-                                                <%time = report.createdAt%>
-                                                <%date = new Date(time)%>
-                                                <%day = date.getDate()%>
-                                                <%month = date.getMonth() + 1;%>
-                                                <%month = date.getMonth() + 1;%>
-                                                <span class="dt"><%= `${day.toString().padStart(2, '0')}/${month.toString().padStart(2, '0')}`%></span>
-                                            </p>
-                                            <p class="is-size-6">taskname: <span class="sc"><%= report.taskname %></span></p>
-                                            <p class="is-size-6">student: <span class="sc"><%= report.target %></span></p>
-                                        </a>
-                                    </div>
-                            <% }}); %>
-                        </div>
+            </div>
+
+            <hr>
+
+
+            <h2 class="label is-3 has-text-weight-medium">Finished Tasks</h2>
+
+            <div class="type-selector">
+                <span class="tag is-medium is-purpleGradedeg" showerData="viTask">Vocabularies</span>
+                <span class="tag is-light is-medium is-purpleGradedeg" showerData="recomendations">Grammar</span>
+            </div>
+
+            <div class="column is-6 is-paddingless margintop-10">
+                <div class="field has-addons">
+                    <div class="control is-w100 is-flex">
+                        <input class="input is-fullwidth" type="text" placeholder="Search by ID, Date, Name, Text, anything" searchPlace="viTask">
+                        <button class="button is-purpleGrade" searchbtn><i class="fas fa-search" style="padding-right: 10px;"></i> search</button>
                     </div>
                 </div>
-            </section>
-        </div>
+            </div>
+            
+            <div class="reportBoxes">
+                <div toShowData="viTask" class="reportSection show">
+                    <div class="columns is-multiline" id="viTask">
+                        <% jsonResponse.allvocabsTasks.forEach((report, i) => { %>
+                            <% if (report.answered == "true") {%>
+                                <div class="column is-3 reportData">
+                                    <a class="reportBox" href="/teacher/tasks/vi/<%= report._id %>">
+                                        <p class="is-size-7">Created At: 
+                                            <%time = report.createdAt%>
+                                            <%date = new Date(time)%>
+                                            <%day = date.getDate()%>
+                                            <%month = date.getMonth() + 1;%>
+                                            <%month = date.getMonth() + 1;%>
+                                            <span class="dt"><%= `${day.toString().padStart(2, '0')}/${month.toString().padStart(2, '0')}`%></span>
+                                        </p>
+                                        <p class="is-size-6">taskname: <span class="sc"><%= report.taskname %></span></p>
+                                        <p class="is-size-6">student: <span class="sc"><%= report.target %></span></p>
+                                    </a>
+                                </div>
+                        <% }}); %>
+                    </div>
+                </div>
+                <div toShowData="recomendations" class="reportSection">
+                    <div class="columns is-multiline" id="recomendations">
+                        <% jsonResponse.allGrammarTasks.forEach((report, i) => { %>
+                            <% if (report.answered == "true") {%>
+                                <div class="column is-3 reportData">
+                                    <a class="reportBox" href="/teacher/tasks/re/<%= report._id %>">
+                                        <p class="is-size-7">Created At: 
+                                            <%time = report.createdAt%>
+                                            <%date = new Date(time)%>
+                                            <%day = date.getDate()%>
+                                            <%month = date.getMonth() + 1;%>
+                                            <%month = date.getMonth() + 1;%>
+                                            <span class="dt"><%= `${day.toString().padStart(2, '0')}/${month.toString().padStart(2, '0')}`%></span>
+                                        </p>
+                                        <p class="is-size-6">taskname: <span class="sc"><%= report.taskname %></span></p>
+                                        <p class="is-size-6">student: <span class="sc"><%= report.target %></span></p>
+                                    </a>
+                                </div>
+                        <% }}); %>
+                    </div>
+                </div>
+            </div>
+        </section>
     </div>
     
     <%- include('../partials/phoneNavT.ejs') %>
