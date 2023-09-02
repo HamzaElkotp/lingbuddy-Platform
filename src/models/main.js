@@ -1225,8 +1225,8 @@ useOverView?.addEventListener('click', async ()=>{
             if(faq == "Yes"){
                 data += `Frequently Asked Questions:\n`;
                 gra["faqs"].forEach((faq, inx)=>{
-                    data += `Q${inx}: ${faq["question"]}\n`;
-                    data += `A${inx}: ${faq["answer"]}\n`;
+                    data += `Q${inx+1}: ${faq["question"]}\n`;
+                    data += `A${inx+1}: ${faq["answer"]}\n`;
                 })
                 data += `\n`;
             }
