@@ -18,6 +18,9 @@
                         <div class="control">
                             <div class="select is-fullwidth">
                                 <select id="selectStudent" required>
+                                    <% if(response.email != null){ %>
+                                        <option value="<%= response.email %>" selected><%= response.email %>
+                                    <% } %>
                                     <option value="Level A">Level A students
                                     <option value="Level B">Level B students
                                     <option value="Level C">Level C students

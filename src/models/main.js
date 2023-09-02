@@ -117,10 +117,10 @@ const composerPrivate = function (...funcs) {
 
 const specifyReportSection = function (getted) {
     let parent = document.querySelector(`[showerData=${getted}]`).closest(".lessonsPage");
-    let searchInput = parent.querySelector("[searchPlace]");
-    searchInput.setAttribute("searchPlace", getted);
+    let searchInput = parent?.querySelector("[searchPlace]");
+    searchInput?.setAttribute("searchPlace", getted);
 
-    let loadcardsBtn = parent.querySelector("[loadPlace]");
+    let loadcardsBtn = parent?.querySelector("[loadPlace]");
     loadcardsBtn?.setAttribute("loadPlace", getted);
     return getted
 }

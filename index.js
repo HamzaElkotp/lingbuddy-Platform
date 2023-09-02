@@ -340,13 +340,17 @@ app.get("/teacher/control/:email", async(req,res)=>{
     const email = req.params.email;
     const userData = await User.findOne({email});
     if(userData){
-        const writingReports = await Writings.find({email})
-        const writingMockReports = await WritingMock.find({email})
+        const writingReports = await Writings.find({email});
+        const writingMockReports = await WritingMock.find({email});
+        const allvocabsTasks = await Vitasks.find({target:email});
+        const allGrammarTasks = await Resourcetasks.find({target:email});
 
         const jsonResponse = {
             userData,
             writingReports,
-            writingMockReports
+            writingMockReports,
+            allvocabsTasks,
+            allGrammarTasks
         };
         res.render(`teacher/control`, { jsonResponse });
     } else{
@@ -385,8 +389,13 @@ app.get("/teacher/tasks/re/:id", async(req,res)=>{
     res.render('teacher/tasks/resourcetask', { responseData })
 })
 
+app.get("/teacher/tasks/newtask/:email", async(req,res)=>{
+    const email = req.params.email;
+
+    res.render(`teacher/newtask`, {response: {email}});
+})
 app.get("/teacher/tasks/newtask", async(req,res)=>{
-    res.render(`teacher/newtask`);
+    res.render(`teacher/newtask`,{response: {email: null}});
 })
 
 app.get("/teacher/tasks/:email", async(req,res)=>{
