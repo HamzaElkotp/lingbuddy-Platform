@@ -31,8 +31,9 @@ import { User, Writings, Speakings, WritingMock, SpeakingMock, Meetings, Vitasks
 // const Overview = require('./dbmodels/overviewmodel');
 
 
+
 // langchain custom models
-// import get_MissGrammared_list from './langchainmodels/grammarStore.js'
+import MissGrammared_list from './langchainmodels/grammarStore.js'
 import find_MissGrammared_list from './langchainmodels/grammarParsers.js'
 import find_MissWords_list from './langchainmodels/misswordsParsers.js'
 
@@ -375,7 +376,6 @@ app.post("/teacher/control/saveWriteMockReport", async(req,res)=>{
 })
 
 
-
 app.get("/teacher/tasks/vi/:id", async(req,res)=>{
     const id = req.params.id;
     
@@ -436,6 +436,35 @@ app.post("/teacher/newtask/new-resource-task", async(req,res)=>{
 })
 
 
+app.post("/get-langchain-grammar", async(req,res)=>{ 
+    const data = await req.body;
+    let grammars = data.grammars;
+
+    let grammarList = await MissGrammared_list(grammars);
+
+    setTimeout(() => {
+        res.json({grammarList})
+    }, 3000);
+})
+
+
+
+// app.get("/teacher/reports/:email", async(req,res)=>{ 
+//     const email = req.params.email;
+//     const userData = await User.findOne({email});
+//     if(userData){
+//         const writingReports = await Writings.find({email});
+//         const writingMockReports = await WritingMock.find({email});
+
+//         const jsonResponse = {
+//             writingReports,
+//             writingMockReports
+//         };
+//         res.render(`teacher/reports`, { jsonResponse });
+//     } else{
+//         res.redirect('../')
+//     }
+// })
 
 
 

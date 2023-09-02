@@ -55,6 +55,13 @@ taskssNavLinks?.forEach((link)=>{
     link.href = `/teacher/tasks/${x}`;
 })
 
+// let treportsNavLinks = document.querySelectorAll("[href='/teacher/reports']")
+// treportsNavLinks?.forEach((link)=>{
+//     let x = JSON.parse(window.localStorage.getItem('userLogin'));
+//     x = x.email;
+//     link.href = `/teacher/reports/${x}`;
+// })
+
 
 const pageTitle = document.querySelector('#pageTitle');
 (function () {
@@ -1172,14 +1179,64 @@ useOverView?.addEventListener('click', async ()=>{
 
     } else if(selectedRadio == "resource"){
         let filtered = [];
-        // alltds.forEach((v, i) => {
-        //     if(i % 2 != 0){
-        //         filtered.push(v.textContent)
-        //     }
-        // });
+        alltds.forEach((v, i) => {
+            if(i % 2 == 0){
+                filtered.push(v.textContent)
+            }
+        });
 
-        // let command = `return simple definition of all these vocabularies: ${filtered.join(', ')}`;
+        useOverView.disabled = true;
+        unuseOverView.disabled = true;
+        noOverView.disabled = true;
 
+        infoUse.textContent = "Wait sometime to Prepare these Grammars"
+
+        let response = await postEndPoint("/get-langchain-grammar", JSON.stringify({grammars: filtered.join(', ')}))
+
+        let resData = await response.json();
+        
+        let exType = document.getElementById("exType").value;
+        let exYn = document.getElementById("exYn").value;
+        let faq = document.getElementById("faq").value;
+        let url = document.getElementById("url").value;
+
+        
+        resData["grammarList"].forEach((gra, i)=>{
+            if(gra == null){
+                return 
+            }
+            data += `- ${filtered[i]}\n`;
+            if(exType == "Short"){
+                data += `Short Exaplaination:\n`;
+                data += `${gra["shortExplanation"]}\n\n`;
+            }else {
+                data += `Detailed Exaplaination:\n`;
+                data += `${gra["detailedExplanation"]}\n\n`;
+            }
+
+            if(exYn == "Yes"){
+                data += `Examples:\n`;
+                gra["examples"].forEach((ex)=>{
+                    data += `${ex}\n`;
+                })
+                data += `\n`;
+            }
+
+            if(faq == "Yes"){
+                data += `Frequently Asked Questions:\n`;
+                gra["faqs"].forEach((faq, inx)=>{
+                    data += `Q${inx}: ${faq["question"]}\n`;
+                    data += `A${inx}: ${faq["answer"]}\n`;
+                })
+                data += `\n`;
+            }
+
+            if(url == "Yes"){
+                data += `Youtube Search: https://www.youtube.com/results?search_query=${filtered[i]}&sp=CAASBAgFEAE%253D\n`;
+                data += `cambridge: https://dictionary.cambridge.org/spellcheck/british-grammar/?q=${filtered[i]}\n\n`;
+            }
+            data += `\n`;
+        })
     } 
 
     let textarea = showTaskCreatePage().querySelector('textarea');
@@ -1270,7 +1327,7 @@ sendVoIds?.addEventListener('click', async()=>{
     const response = await postEndPoint("/teacher/newtask/new-vocabs-idioms-task", JSON.stringify({taskContent: vodsIdoms, target: targetUser, taskname, number, temail}))
     const data = await response.json();
     if(data.success){
-        window.location.href = `./${temail}`
+        window.location.href = `/teacher/tasks/${temail}`
     }
 })
 
@@ -1309,7 +1366,7 @@ sendResource?.addEventListener('click', async()=>{
     const response = await postEndPoint("/teacher/newtask/new-resource-task", JSON.stringify({taskContent: resources, target: targetUser, taskname, temail}))
     const data = await response.json();
     if(data.success){
-        window.location.href = `./${temail}`
+        window.location.href = `/teacher/tasks/${temail}`
     }
 })
 

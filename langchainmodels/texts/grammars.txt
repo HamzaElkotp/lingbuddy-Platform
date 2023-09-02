@@ -1,5 +1,14 @@
 Grammar Rule: Modal Verbs
 Pointer: #Pointer/0
 
+
 Grammar Rule: The present continuous
 Pointer: #Pointer/1
+
+
+Grammar Rule: Present Perfect
+Pointer: #Pointer/2
+
+
+Grammar Rule: Present Simple
+Pointer: #Pointer/3
