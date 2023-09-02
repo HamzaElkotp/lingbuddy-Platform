@@ -20,14 +20,24 @@
             <div class="reportBoxes">
                 <div class="reportSection show">
                     <div class="columns is-multiline">
-                        <div class="column is-6 reportData">
-                            <div class="reportBox">
-                                <p class="is-size-7">ID: 789205</p>
-                                <p class="is-size-6">Created At: <span>2023/5/20</span></p>
-                                <p class="is-size-6">Test Date: <span>2023/5/30</span></p>
-                                <p class="is-size-6">State: <span class="has-text-warning-dark">Pending</span></p>
+                        <% allRoadmaps.forEach((report, i) => { %>
+                            <div class="column is-4 reportData" roadId="<%= report._id%>">
+                                <div class="reportBox">
+                                    <p class="is-size-7">Started At: 
+                                        <span class="dt" job="startDate"><%= report.startDate %></span>
+                                    </p>
+                                    <p class="is-size-7">Ends At: 
+                                        <span class="dt" job="endDate"><%= report.endDate %></span>
+                                    </p>
+                                    <p class="is-size-6">To Imporve: <span class="sc" job="improve"><%= report.improve %></span></p>
+                                    <p class="is-size-6">Daily Study Hours: <span class="sc" job="studyHours"><%= report.studyHours %></span></p>
+                                    <div class="is-size-6">Teacher Notes: 
+                                        <p class="is-size-7 longTxt tef" job="teacherNotes"><%= report.teacherNote?.length > 0 ? report.teacherNote : "-" %></p>
+                                    </div>
+                                    <p class="is-size-7 longTxt tef is-hidden" job="roadmap"><%= report.roadmap %></p>
+                                </div>
                             </div>
-                        </div>
+                        <% }); %>
                     </div>
                 </div>
             </div>
@@ -38,59 +48,29 @@
     <div class="popup-overlay dataPop">
         <div class="popup-container" id="popHtml">
             <div class="buttons">
+                <button class="button is-purpleGrade is-small" id="exportSheet" fileName="report"><i class="fa-solid fa-download"></i></button>
                 <i class="fas fa-times" onclick="hideReportDataPopup()"></i>
             </div>
-            
-            <p class="is-size-6">ID: <span class="is-size-7" fildeid="">789203</span></p>
-            <p class="is-size-6">Created At: <span class="is-size-7">2023/5/19</span></p>
-            <p class="is-size-6">Test Date: <span class="is-size-7">2023/5/30</span></p>
-            <p class="is-size-6">State: <span class="has-text-warning-dark">Pending</span></p>
+            <div id="onlyreports" class="is-hidden"></div>
 
-            <hr>
+            <div id="onlyroads" class="is-hidden">
+                <div class="contBoxer">
+                    <p class="label is-size-65 has-text-weight-medium">Started At: <span class="is-size-6 writings cus60" job="startDate"></span></p>
+                    <p class="label is-size-65 has-text-weight-medium">Ends At: <span class="is-size-6 writings cus60" job="endDate"></span></p>
+                    <p class="label is-size-65 has-text-weight-medium">To Imporve: <span class="is-size-6 writing cus60" job="improve"></span></p>
+                    <p class="label is-size-65 has-text-weight-medium">Daily Study Hours: <span class="is-size-6 writings cus60" job="studyHours"></span></p>
+                        <hr class="is-small is-light">
 
-<p class="is-size-5-5 writings">Preparing for the IELTS test requires consistent practice and dedication. Here's a roadmap for the next 20 days to help you prepare effectively:
+                    <p class="label has-text-weight-medium cus40">Roadmap</p>
+                    <p class="is-size-5-5 writings" job="roadmap"></p>
+                        <hr class="is-small is-light">
+                    <p class="label has-text-weight-medium cus40">Teacher Notes</p>
+                    <p class="is-size-5-5 writings" job="teacherNotes"></p>
+                </div>
+            </div>
 
-<span class="important">Day 1-2:</span> Familiarize Yourself with the Test Format
-- Understand the structure and sections of the IELTS test (Listening, Reading, Writing, Speaking).
-- Review sample questions and become familiar with the instructions.
-
-<span class="important">Day 3-5:</span> Assess Your Current Level
-- Take a full-length practice test to identify your strengths and weaknesses in each section.
-- Analyze your performance to determine which areas require more attention.
-
-<span class="important">Day 6-10:</span> Focus on Listening and Reading
-- Practice listening skills by watching English movies, TV shows, or documentaries.
-- Complete listening practice exercises and mock tests to improve your comprehension.
-- Enhance your reading skills by reading English articles, newspapers, or academic texts.
-- Practice skimming, scanning, and identifying key information in passages.
-
-<span class="important">Day 11-15:</span> Enhance Writing Skills
-- Study the different task types and scoring criteria for the Writing section.
-- Practice writing essays and letters within the time limit.
-- Seek feedback from a teacher, tutor, or native English speaker to improve your writing.
-
-<span class="important">Day 16-18:</span> Develop Speaking Skills
-- Engage in conversations in English with friends, colleagues, or language partners.
-- Practice speaking on various topics, expressing opinions, and giving explanations.
-- Record yourself speaking and analyze areas for improvement in fluency, pronunciation, and grammar.
-
-<span class="important">Day 19-20:</span> Review and Mock Tests
-- Review grammar rules, vocabulary, and common idiomatic expressions.
-- Take at least one full-length mock test to simulate the real test conditions.
-- Analyze your performance, identify weaknesses, and focus on improving those areas.
-
-<span class="important">YouTube Video Recommendations:</span>
-1. IELTS Liz: A popular channel with comprehensive lessons, tips, and sample answers for all sections of the IELTS test. <br>(<a href="https://www.youtube.com/user/ieltsliz">https://www.youtube.com/user/ieltsliz</a>)
-2. IELTS Ryan: Provides strategies, practice exercises, and model answers for the Writing and Speaking sections. <br>(<a href="https://www.youtube.com/user/IELTSryan">https://www.youtube.com/user/IELTSryan</a>)
-3. British Council: The official channel of the British Council offers useful tips, sample tests, and interviews with IELTS experts. <br>(<a href="https://www.youtube.com/user/britishcouncil">https://www.youtube.com/user/britishcouncil</a>)
-4. E2 IELTS: Covers all sections of the IELTS test, providing valuable tips, strategies, and sample answers. <br>(<a href="https://www.youtube.com/c/E2IELTS">https://www.youtube.com/c/E2IELTS</a>)
-5. IELTS Advantage: Offers in-depth lessons, techniques, and sample answers for the Reading and Writing sections. <br>(<a href="https://www.youtube.com/user/IELTSAdvantage">https://www.youtube.com/user/IELTSAdvantage</a>)
-
-Remember to allocate time each day for focused practice and review. Stay consistent, manage your time effectively, and maintain a positive mindset. Good luck with your IELTS preparation!    
-</p>
-            
         </div>
-    </div>
+    </div>  
 
     <div class="popup-overlay is-noShadow dataPop opacityAni is-pg-center" id="roadmapGeneratePop">
         <div class="popup-container">

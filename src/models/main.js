@@ -47,6 +47,12 @@ reportsNavLinks?.forEach((link)=>{
     x = x.email;
     link.href = `/student/reports/${x}`;
 })
+let roadmapsNavLinks = document.querySelectorAll("[href='/student/roadmap']")
+roadmapsNavLinks?.forEach((link)=>{
+    let x = JSON.parse(window.localStorage.getItem('userLogin'));
+    x = x.email;
+    link.href = `/student/roadmap/${x}`;
+})
 
 let taskssNavLinks = document.querySelectorAll("[href='/teacher/tasks']")
 taskssNavLinks?.forEach((link)=>{
@@ -884,6 +890,9 @@ const getWriteReportsReady = function(){
     let contBoxer = document.querySelector('#writing');
     let saveTFeedbackBtn = contBoxer.querySelector('button');
     const showWritingReportDetails = function(e){
+        document.getElementById("onlyreports").classList.remove('is-hidden');
+        document.getElementById("onlyroads").classList.add('is-hidden');
+
         showReportDataPopup()
         // reset
         let contBoxers = document.querySelectorAll('.contBoxer');
@@ -934,6 +943,9 @@ const getWriteMocksReportsReady = function(){
     let contBoxer = document.querySelector('#writeMock');
     let saveTFeedbackBtn = contBoxer.querySelector('button');
     const showWritingMockReportDetails = function(e){
+        document.getElementById("onlyreports").classList.remove('is-hidden');
+        document.getElementById("onlyroads").classList.add('is-hidden');
+
         showReportDataPopup()
         // reset
         let contBoxers = document.querySelectorAll('.contBoxer');
@@ -975,6 +987,48 @@ const getWriteMocksReportsReady = function(){
     })
 }
 
+
+const saveRoadmapTnotes = async function(id, fb){
+    const response = await postEndPoint('/teacher/control/save-roadmap-teacher-notes', JSON.stringify({id, teacherNotes: fb}));
+    if(response.ok){
+        let success = await response.json();
+        if(success.success){window.location.reload()}
+    }
+}
+const getRoadmapsReady = function(){
+    let allroadId = document.querySelectorAll("[roadId]");
+
+    let saveRoadNotes = document.getElementById("saveRoadNotes");
+    saveRoadNotes?.addEventListener('click', ()=>{
+        let zpopup = document.getElementById("onlyroads");
+        let notes = zpopup.querySelector("[job='teacherNotes']").value
+        let roadIdT = saveRoadNotes.getAttribute("roadIdT");
+        saveRoadmapTnotes(roadIdT, notes)
+    })
+
+    allroadId.forEach((ele)=>{
+
+        ele.addEventListener('click', ()=>{
+
+            document.getElementById("onlyreports").classList.add('is-hidden');
+            let zpopup = document.getElementById("onlyroads")
+            zpopup.classList.remove('is-hidden'); 
+            zpopup.querySelector('.contBoxer').classList.remove('is-hidden'); 
+
+            
+            zpopup.querySelector('[job="startDate"]').textContent = ele.querySelector('[job="startDate"]').textContent;
+            zpopup.querySelector("[job='endDate']").textContent = ele.querySelector("[job='endDate']").textContent;
+            zpopup.querySelector("[job='improve']").textContent = ele.querySelector("[job='improve']").textContent;
+            zpopup.querySelector("[job='studyHours']").textContent = ele.querySelector("[job='studyHours']").textContent;
+            zpopup.querySelector("[job='roadmap']").textContent = ele.querySelector("[job='roadmap']").textContent;
+
+            zpopup.querySelector("[job='teacherNotes']").value = ele.querySelector("[job='teacherNotes']").textContent == "-" ? "" : ele.querySelector("[job='teacherNotes']").textContent;
+            zpopup.querySelector("[job='teacherNotes']").textContent = ele.querySelector("[job='teacherNotes']").textContent;
+           
+            saveRoadNotes?.setAttribute("roadIdT", ele.getAttribute("roadId"))
+        })
+    })
+}
 
 
 
@@ -1399,7 +1453,7 @@ else if(window.location.pathname.includes('student/learn')){
     
 }
 else if(window.location.pathname.includes('student/roadmap')){
-    
+    getRoadmapsReady();
 }
 else if(window.location.pathname.includes('student')){
     getStudentMeetings();
@@ -1415,6 +1469,7 @@ else if(window.location.pathname.includes('teacher/control')){
     getWriteReportsReady();
     getWriteMocksReportsReady();
     getStudentStudyOverview();
+    getRoadmapsReady();
 }
 else if(window.location.pathname.includes('teacher/tasks/vi')){
     colorUrlsSources()

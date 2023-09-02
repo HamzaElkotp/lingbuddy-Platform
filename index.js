@@ -178,8 +178,11 @@ app.post("/student/reports/new-writing-report", async(req,res)=>{
 
 
 
-app.get("/student/roadmap", (req,res)=>{ 
-    res.render(`student/roadmap`);
+app.get("/student/roadmap/:email", async(req,res)=>{
+    const email = req.params.email;
+    const allRoadmaps = await Roadmaps.find({email:email});
+
+    res.render(`student/roadmap`, {allRoadmaps});
 })
 app.post("/student/roadmap/activate-new-roadmap", async(req,res)=>{ 
     let reportData = await req.body;
@@ -353,13 +356,15 @@ app.get("/teacher/control/:email", async(req,res)=>{
         const writingMockReports = await WritingMock.find({email});
         const allvocabsTasks = await Vitasks.find({target:email});
         const allGrammarTasks = await Resourcetasks.find({target:email});
+        const allRoadmaps = await Roadmaps.find({email:email});
 
         const jsonResponse = {
             userData,
             writingReports,
             writingMockReports,
             allvocabsTasks,
-            allGrammarTasks
+            allGrammarTasks,
+            allRoadmaps 
         };
         res.render(`teacher/control`, { jsonResponse });
     } else{
@@ -380,6 +385,14 @@ app.post("/teacher/control/saveWriteMockReport", async(req,res)=>{
     let filterObj = { _id: data.id };
 
     let doc = await WritingMock.findOneAndUpdate(filterObj, updateObj);
+    res.json({success: true})
+})
+app.post("/teacher/control/save-roadmap-teacher-notes", async(req,res)=>{
+    let data = await req.body;
+    let updateObj = { teacherNote: data.teacherNotes };
+    let filterObj = { _id: data.id };
+
+    let doc = await Roadmaps.findOneAndUpdate(filterObj, updateObj);
     res.json({success: true})
 })
 
